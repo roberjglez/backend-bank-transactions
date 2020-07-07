@@ -1,7 +1,6 @@
 package com.rjglez.backend.bank.transactions.application.use_case;
 
-import com.rjglez.backend.bank.transactions.application.command.TransactionCommand;
-import com.rjglez.backend.bank.transactions.domain.exception.AccountDoesNotExistException;
+import com.rjglez.backend.bank.transactions.application.command.NewTransactionCommand;
 import com.rjglez.backend.bank.transactions.domain.exception.InsufficientBalanceException;
 import com.rjglez.backend.bank.transactions.domain.model.AccountEntity;
 import com.rjglez.backend.bank.transactions.domain.model.TransactionEntity;
@@ -10,8 +9,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 
 @Slf4j
@@ -22,21 +19,21 @@ public class CreateTransactionUseCase {
     private final AccountRepository accountRepository;
 
     @Transactional
-    public void create(TransactionCommand transactionCommand) {
+    public void create(NewTransactionCommand newTransactionCommand) {
 
         log.info("Process in CreateTransactionUseCase starts");
 
-        TransactionEntity transactionEntity = TransactionEntity.of(transactionCommand);
+        TransactionEntity transactionEntity = TransactionEntity.of(newTransactionCommand);
         transactionEntity.checkParameters();
 
-        processTransaction(transactionEntity, transactionCommand.getAccountIban());
+        processTransaction(transactionEntity, newTransactionCommand.getAccountIban());
 
         log.info("Process in CreateTransactionUseCase ends");
     }
 
     private void processTransaction(TransactionEntity transactionEntity, String accountIban) {
 
-        AccountEntity account = getAccount(accountIban);
+        AccountEntity account = accountRepository.find(accountIban);
 
         double amountToProcess = transactionEntity.getAmountToProcess();
 
@@ -47,18 +44,6 @@ public class CreateTransactionUseCase {
         } else {
             log.error("Insufficient balance in account. Current balance in account is {} and the amount to process is {}", account.getBalance(), amountToProcess);
             throw new InsufficientBalanceException(accountIban);
-        }
-    }
-
-    private AccountEntity getAccount(String accountIban) {
-
-        Optional<AccountEntity> account = accountRepository.find(accountIban);
-
-        if (account.isPresent()) {
-            return account.get();
-        } else {
-            log.error("Account with IBAN {} does not exist", accountIban);
-            throw new AccountDoesNotExistException(accountIban);
         }
     }
 }

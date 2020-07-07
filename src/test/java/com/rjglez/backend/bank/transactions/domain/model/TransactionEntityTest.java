@@ -1,6 +1,6 @@
 package com.rjglez.backend.bank.transactions.domain.model;
 
-import com.rjglez.backend.bank.transactions.application.command.TransactionCommand;
+import com.rjglez.backend.bank.transactions.application.command.NewTransactionCommand;
 import com.rjglez.backend.bank.transactions.domain.utils.DataUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
@@ -23,47 +23,47 @@ public class TransactionEntityTest {
     public void shouldReturnTransactionEntityWhenDateAndOrReferenceAreNull(String date, String reference) {
 
         // GIVEN
-        TransactionCommand transactionCommand = createTransactionCommandWithParameters(date, reference);
+        NewTransactionCommand newTransactionCommand = createTransactionCommandWithParameters(date, reference);
 
         // WHEN
-        TransactionEntity transactionEntity = TransactionEntity.of(transactionCommand);
+        TransactionEntity transactionEntity = TransactionEntity.of(newTransactionCommand);
         transactionEntity.checkParameters();
 
         // THEN
         Assertions.assertThat(transactionEntity.getId()).isNotNull();
-        Assertions.assertThat(transactionEntity.getAccount().getId()).isEqualTo(transactionCommand.getAccountIban());
+        Assertions.assertThat(transactionEntity.getAccount().getId()).isEqualTo(newTransactionCommand.getAccountIban());
         Assertions.assertThat(transactionEntity.getDate()).isNotNull();
-        Assertions.assertThat(transactionEntity.getAmount()).isEqualTo(transactionCommand.getAmount());
-        Assertions.assertThat(transactionEntity.getFee()).isEqualTo(transactionCommand.getFee());
-        Assertions.assertThat(transactionEntity.getDescription()).isEqualTo(transactionCommand.getDescription());
+        Assertions.assertThat(transactionEntity.getAmount()).isEqualTo(newTransactionCommand.getAmount());
+        Assertions.assertThat(transactionEntity.getFee()).isEqualTo(newTransactionCommand.getFee());
+        Assertions.assertThat(transactionEntity.getDescription()).isEqualTo(newTransactionCommand.getDescription());
     }
 
     @Test
     public void shouldReturnTransactionEntity() {
 
         // GIVEN
-        TransactionCommand transactionCommand = DataUtils.createTransactionCommand();
+        NewTransactionCommand newTransactionCommand = DataUtils.createTransactionCommand();
 
         // WHEN
-        TransactionEntity transactionEntity = TransactionEntity.of(transactionCommand);
+        TransactionEntity transactionEntity = TransactionEntity.of(newTransactionCommand);
 
         // THEN
-        Assertions.assertThat(transactionEntity.getId()).isEqualTo(transactionCommand.getReference());
-        Assertions.assertThat(transactionEntity.getAccount().getId()).isEqualTo(transactionCommand.getAccountIban());
-        Assertions.assertThat(transactionEntity.getDate()).isEqualTo(transactionCommand.getDate());
-        Assertions.assertThat(transactionEntity.getAmount()).isEqualTo(transactionCommand.getAmount());
-        Assertions.assertThat(transactionEntity.getFee()).isEqualTo(transactionCommand.getFee());
-        Assertions.assertThat(transactionEntity.getDescription()).isEqualTo(transactionCommand.getDescription());
+        Assertions.assertThat(transactionEntity.getId()).isEqualTo(newTransactionCommand.getReference());
+        Assertions.assertThat(transactionEntity.getAccount().getId()).isEqualTo(newTransactionCommand.getAccountIban());
+        Assertions.assertThat(transactionEntity.getDate()).isEqualTo(newTransactionCommand.getDate());
+        Assertions.assertThat(transactionEntity.getAmount()).isEqualTo(newTransactionCommand.getAmount());
+        Assertions.assertThat(transactionEntity.getFee()).isEqualTo(newTransactionCommand.getFee());
+        Assertions.assertThat(transactionEntity.getDescription()).isEqualTo(newTransactionCommand.getDescription());
     }
 
     @Test
     public void shouldGetAmountToProcessInTransactionToAddBalance() {
 
         // GIVEN
-        TransactionCommand transactionCommand = DataUtils.createTransactionCommand();
+        NewTransactionCommand newTransactionCommand = DataUtils.createTransactionCommand();
 
         // WHEN
-        TransactionEntity transactionEntity = TransactionEntity.of(transactionCommand);
+        TransactionEntity transactionEntity = TransactionEntity.of(newTransactionCommand);
         double            amountToProcess   = transactionEntity.getAmountToProcess();
 
         // THEN
@@ -74,10 +74,10 @@ public class TransactionEntityTest {
     public void shouldGetAmountToProcessInTransactionToDeductBalance() {
 
         // GIVEN
-        TransactionCommand transactionCommand = DataUtils.createTransactionCommand();
+        NewTransactionCommand newTransactionCommand = DataUtils.createTransactionCommand();
 
         // WHEN
-        TransactionEntity transactionEntity = TransactionEntity.of(transactionCommand);
+        TransactionEntity transactionEntity = TransactionEntity.of(newTransactionCommand);
         transactionEntity.setAmount(-100.30);
         double amountToProcess = transactionEntity.getAmountToProcess();
 
@@ -95,15 +95,15 @@ public class TransactionEntityTest {
         );
     }
 
-    private TransactionCommand createTransactionCommandWithParameters(String date, String reference) {
+    private NewTransactionCommand createTransactionCommandWithParameters(String date, String reference) {
 
-        return TransactionCommand.builder()
-                                 .reference(reference)
-                                 .accountIban("ES5220951741879861123899")
-                                 .date(date)
-                                 .amount(52.79)
-                                 .fee(3.50)
-                                 .description("Payment in market")
-                                 .build();
+        return NewTransactionCommand.builder()
+                                    .reference(reference)
+                                    .accountIban("ES5220951741879861123899")
+                                    .date(date)
+                                    .amount(52.79)
+                                    .fee(3.50)
+                                    .description("Payment in market")
+                                    .build();
     }
 }

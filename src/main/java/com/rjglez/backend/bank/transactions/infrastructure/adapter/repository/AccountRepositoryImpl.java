@@ -1,5 +1,6 @@
 package com.rjglez.backend.bank.transactions.infrastructure.adapter.repository;
 
+import com.rjglez.backend.bank.transactions.domain.exception.AccountDoesNotExistException;
 import com.rjglez.backend.bank.transactions.domain.model.AccountEntity;
 import com.rjglez.backend.bank.transactions.domain.port.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +25,15 @@ public class AccountRepositoryImpl implements AccountRepository {
     }
 
     @Override
-    public Optional<AccountEntity> find(String accountIban) {
+    public AccountEntity find(String accountIban) {
 
-        return accountJpaRepository.findById(accountIban);
+        Optional<AccountEntity> account = accountJpaRepository.findById(accountIban);
+
+        if (account.isPresent()) {
+            return account.get();
+        } else {
+            log.error("Account with IBAN {} does not exist", accountIban);
+            throw new AccountDoesNotExistException(accountIban);
+        }
     }
 }

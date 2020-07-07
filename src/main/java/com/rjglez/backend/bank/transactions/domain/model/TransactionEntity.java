@@ -3,7 +3,7 @@ package com.rjglez.backend.bank.transactions.domain.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import com.rjglez.backend.bank.transactions.application.command.TransactionCommand;
+import com.rjglez.backend.bank.transactions.application.command.NewTransactionCommand;
 import lombok.*;
 
 import javax.persistence.*;
@@ -38,19 +38,19 @@ public class TransactionEntity {
 
     private String description;
 
-    public static TransactionEntity of(TransactionCommand transactionCommand) {
+    public static TransactionEntity of(NewTransactionCommand newTransactionCommand) {
 
         AccountEntity accountEntity = AccountEntity.builder()
-                                                   .id(transactionCommand.getAccountIban())
+                                                   .id(newTransactionCommand.getAccountIban())
                                                    .build();
 
         return TransactionEntity.builder()
-                                .id(transactionCommand.getReference())
+                                .id(newTransactionCommand.getReference())
                                 .account(accountEntity)
-                                .date(transactionCommand.getDate())
-                                .amount(transactionCommand.getAmount())
-                                .fee(transactionCommand.getFee())
-                                .description(transactionCommand.getDescription())
+                                .date(newTransactionCommand.getDate())
+                                .amount(newTransactionCommand.getAmount())
+                                .fee(newTransactionCommand.getFee())
+                                .description(newTransactionCommand.getDescription())
                                 .build();
     }
 

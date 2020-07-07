@@ -11,7 +11,7 @@ import org.springframework.beans.BeanUtils;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class TransactionCommand {
+public class NewTransactionCommand {
 
     private String reference;
     private String accountIban;
@@ -20,13 +20,13 @@ public class TransactionCommand {
     private double fee;
     private String description;
 
-    public static TransactionCommand of(TransactionPresentation transactionPresentation) {
-        TransactionCommand transactionCommand = new TransactionCommand();
+    public static NewTransactionCommand of(TransactionPresentation transactionPresentation) {
+        NewTransactionCommand newTransactionCommand = new NewTransactionCommand();
         try {
-            BeanUtils.copyProperties(transactionPresentation, transactionCommand);
+            BeanUtils.copyProperties(transactionPresentation, newTransactionCommand);
         } catch (Exception e) {
-            throw new RuntimeException("Error creating TransactionCommand from TransactionPresentation", e);
+            throw new RuntimeException("Error creating NewTransactionCommand from TransactionPresentation", e);
         }
-        return transactionCommand;
+        return newTransactionCommand;
     }
 }

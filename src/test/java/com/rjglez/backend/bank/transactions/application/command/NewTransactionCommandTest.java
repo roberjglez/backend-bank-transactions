@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TransactionCommandTest {
+public class NewTransactionCommandTest {
 
     @Test
     public void shouldReturnTransactionCommand() {
@@ -20,15 +20,15 @@ public class TransactionCommandTest {
         TransactionPresentation transactionPresentation = createTransactionPresentation();
 
         // WHEN
-        TransactionCommand transactionCommand = TransactionCommand.of(transactionPresentation);
+        NewTransactionCommand newTransactionCommand = NewTransactionCommand.of(transactionPresentation);
 
         // THEN
-        Assertions.assertThat(transactionCommand.getReference()).isEqualTo(transactionPresentation.getReference());
-        Assertions.assertThat(transactionCommand.getAccountIban()).isEqualTo(transactionPresentation.getAccountIban());
-        Assertions.assertThat(transactionCommand.getDate()).isEqualTo(transactionPresentation.getDate());
-        Assertions.assertThat(transactionCommand.getAmount()).isEqualTo(transactionPresentation.getAmount());
-        Assertions.assertThat(transactionCommand.getFee()).isEqualTo(transactionPresentation.getFee());
-        Assertions.assertThat(transactionCommand.getDescription()).isEqualTo(transactionPresentation.getDescription());
+        Assertions.assertThat(newTransactionCommand.getReference()).isEqualTo(transactionPresentation.getReference());
+        Assertions.assertThat(newTransactionCommand.getAccountIban()).isEqualTo(transactionPresentation.getAccountIban());
+        Assertions.assertThat(newTransactionCommand.getDate()).isEqualTo(transactionPresentation.getDate());
+        Assertions.assertThat(newTransactionCommand.getAmount()).isEqualTo(transactionPresentation.getAmount());
+        Assertions.assertThat(newTransactionCommand.getFee()).isEqualTo(transactionPresentation.getFee());
+        Assertions.assertThat(newTransactionCommand.getDescription()).isEqualTo(transactionPresentation.getDescription());
     }
 
     private TransactionPresentation createTransactionPresentation() {

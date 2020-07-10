@@ -14,7 +14,7 @@ import java.util.UUID;
 public class NewTransactionCommandTest {
 
     @Test
-    public void shouldReturnTransactionCommand() {
+    public void shouldReturnNewTransactionCommand() {
 
         // GIVEN
         TransactionPresentation transactionPresentation = createTransactionPresentation();

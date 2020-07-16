@@ -1,6 +1,6 @@
 package com.rjglez.backend.bank.transactions.application.command;
 
-import com.rjglez.backend.bank.transactions.infrastructure.presentation.TransactionPresentation;
+import com.rjglez.backend.bank.transactions.infrastructure.presentation.NewTransactionPresentation;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,31 +17,31 @@ public class NewTransactionCommandTest {
     public void shouldReturnNewTransactionCommand() {
 
         // GIVEN
-        TransactionPresentation transactionPresentation = createTransactionPresentation();
+        NewTransactionPresentation newTransactionPresentation = createTransactionPresentation();
 
         // WHEN
-        NewTransactionCommand newTransactionCommand = NewTransactionCommand.of(transactionPresentation);
+        NewTransactionCommand newTransactionCommand = NewTransactionCommand.of(newTransactionPresentation);
 
         // THEN
-        Assertions.assertThat(newTransactionCommand.getReference()).isEqualTo(transactionPresentation.getReference());
-        Assertions.assertThat(newTransactionCommand.getAccountIban()).isEqualTo(transactionPresentation.getAccountIban());
-        Assertions.assertThat(newTransactionCommand.getDate()).isEqualTo(transactionPresentation.getDate());
-        Assertions.assertThat(newTransactionCommand.getAmount()).isEqualTo(transactionPresentation.getAmount());
-        Assertions.assertThat(newTransactionCommand.getFee()).isEqualTo(transactionPresentation.getFee());
-        Assertions.assertThat(newTransactionCommand.getDescription()).isEqualTo(transactionPresentation.getDescription());
+        Assertions.assertThat(newTransactionCommand.getReference()).isEqualTo(newTransactionPresentation.getReference());
+        Assertions.assertThat(newTransactionCommand.getAccountIban()).isEqualTo(newTransactionPresentation.getAccountIban());
+        Assertions.assertThat(newTransactionCommand.getDate()).isEqualTo(newTransactionPresentation.getDate());
+        Assertions.assertThat(newTransactionCommand.getAmount()).isEqualTo(newTransactionPresentation.getAmount());
+        Assertions.assertThat(newTransactionCommand.getFee()).isEqualTo(newTransactionPresentation.getFee());
+        Assertions.assertThat(newTransactionCommand.getDescription()).isEqualTo(newTransactionPresentation.getDescription());
     }
 
-    private TransactionPresentation createTransactionPresentation() {
+    private NewTransactionPresentation createTransactionPresentation() {
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
-        return TransactionPresentation.builder()
-                                      .reference(UUID.randomUUID().toString())
-                                      .accountIban("ES5220951741879861123899")
-                                      .date(formatter.format(new Date()))
-                                      .amount(52.79)
-                                      .fee(3.50)
-                                      .description("Payment in market")
-                                      .build();
+        return NewTransactionPresentation.builder()
+                                         .reference(UUID.randomUUID().toString())
+                                         .accountIban("ES5220951741879861123899")
+                                         .date(formatter.format(new Date()))
+                                         .amount(52.79)
+                                         .fee(3.50)
+                                         .description("Payment in market")
+                                         .build();
     }
 }

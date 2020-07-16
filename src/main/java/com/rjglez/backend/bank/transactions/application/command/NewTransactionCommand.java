@@ -1,6 +1,6 @@
 package com.rjglez.backend.bank.transactions.application.command;
 
-import com.rjglez.backend.bank.transactions.infrastructure.presentation.TransactionPresentation;
+import com.rjglez.backend.bank.transactions.infrastructure.presentation.NewTransactionPresentation;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,12 +20,12 @@ public class NewTransactionCommand {
     private double fee;
     private String description;
 
-    public static NewTransactionCommand of(TransactionPresentation transactionPresentation) {
+    public static NewTransactionCommand of(NewTransactionPresentation newTransactionPresentation) {
         NewTransactionCommand newTransactionCommand = new NewTransactionCommand();
         try {
-            BeanUtils.copyProperties(transactionPresentation, newTransactionCommand);
+            BeanUtils.copyProperties(newTransactionPresentation, newTransactionCommand);
         } catch (Exception e) {
-            throw new RuntimeException("Error creating NewTransactionCommand from TransactionPresentation", e);
+            throw new RuntimeException("Error creating NewTransactionCommand from NewTransactionPresentation", e);
         }
         return newTransactionCommand;
     }

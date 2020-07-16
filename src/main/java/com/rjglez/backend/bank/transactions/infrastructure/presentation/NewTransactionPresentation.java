@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @Builder
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class TransactionPresentation {
+public class NewTransactionPresentation {
 
     private String reference;
     @NotNull(message = "Account iban is mandatory")

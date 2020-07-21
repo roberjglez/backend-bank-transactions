@@ -2,6 +2,7 @@ package com.rjglez.backend.bank.transactions.application.use_case;
 
 import com.rjglez.backend.bank.transactions.application.command.TransactionFinderCommand;
 import com.rjglez.backend.bank.transactions.application.response.TransactionResponse;
+import com.rjglez.backend.bank.transactions.domain.exception.AccountDoesNotExistException;
 import com.rjglez.backend.bank.transactions.domain.model.AccountEntity;
 import com.rjglez.backend.bank.transactions.domain.model.TransactionEntity;
 import com.rjglez.backend.bank.transactions.domain.port.repository.AccountRepository;
@@ -40,12 +41,13 @@ public class GetTransactionUseCase {
     private List<TransactionResponse> getTransactions(TransactionFinderCommand transactionFinderCommand) {
 
         List<TransactionEntity> transactionsEntitiesList = new ArrayList<>();
+        String accountIban = transactionFinderCommand.getAccountIban();
 
-        if (Objects.isNull(transactionFinderCommand.getAccountIban())) {
+        if (Objects.isNull(accountIban)) {
             log.info("Account IBAN not provided, DB will return all transactions");
             transactionsEntitiesList = transactionRepository.findAll();
         } else {
-            AccountEntity account = accountRepository.find(transactionFinderCommand.getAccountIban());
+            AccountEntity account = accountRepository.find(accountIban).orElseThrow(() -> new AccountDoesNotExistException(accountIban));
             transactionsEntitiesList = account.getTransactions();
             log.info("Account with IBAN {} has {} transactions", transactionFinderCommand.getAccountIban(), transactionsEntitiesList.size());
         }

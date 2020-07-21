@@ -2,6 +2,7 @@ package com.rjglez.backend.bank.transactions.application.use_case;
 
 import com.rjglez.backend.bank.transactions.application.command.TransactionFinderCommand;
 import com.rjglez.backend.bank.transactions.application.response.TransactionResponse;
+import com.rjglez.backend.bank.transactions.domain.exception.AccountDoesNotExistException;
 import com.rjglez.backend.bank.transactions.domain.model.AccountEntity;
 import com.rjglez.backend.bank.transactions.domain.model.TransactionEntity;
 import com.rjglez.backend.bank.transactions.domain.port.repository.AccountRepository;
@@ -15,7 +16,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -28,7 +28,7 @@ public class GetTransactionUseCaseTest {
     private GetTransactionUseCase getTransactionUseCase;
 
     @Mock
-    AccountRepository     accountRepository;
+    AccountRepository accountRepository;
 
     @Mock
     TransactionRepository transactionRepository;
@@ -37,6 +37,24 @@ public class GetTransactionUseCaseTest {
     public void setUp() {
 
         this.getTransactionUseCase = new GetTransactionUseCase(accountRepository, transactionRepository);
+    }
+
+    @Test
+    public void shouldThrowAccountDoesNotExistException() {
+
+        org.junit.jupiter.api.Assertions.assertThrows(AccountDoesNotExistException.class, () -> {
+
+            // GIVEN
+            TransactionFinderCommand transactionFinderCommand = TransactionFinderCommand.builder()
+                                                                                        .accountIban("ES3930294948393")
+                                                                                        .sorting(null)
+                                                                                        .build();
+            Mockito.when(accountRepository.find(transactionFinderCommand.getAccountIban())).thenReturn(Optional.empty());
+
+            // WHEN
+            getTransactionUseCase.find(transactionFinderCommand);
+
+        });
     }
 
     @Test
@@ -132,7 +150,7 @@ public class GetTransactionUseCaseTest {
                                                                                     .build();
 
         AccountEntity accountEntity = DataUtils.mockAccountEntity();
-        Mockito.when(accountRepository.find(accountEntity.getId())).thenReturn(accountEntity);
+        Mockito.when(accountRepository.find(accountEntity.getId())).thenReturn(Optional.of(accountEntity));
 
         // WHEN
         List<TransactionResponse> transactionResponseList = getTransactionUseCase.find(transactionFinderCommand);
@@ -159,7 +177,7 @@ public class GetTransactionUseCaseTest {
                                                                                     .build();
 
         AccountEntity accountEntity = DataUtils.mockAccountEntity();
-        Mockito.when(accountRepository.find(accountEntity.getId())).thenReturn(accountEntity);
+        Mockito.when(accountRepository.find(accountEntity.getId())).thenReturn(Optional.of(accountEntity));
 
         // WHEN
         List<TransactionResponse> transactionResponseList = getTransactionUseCase.find(transactionFinderCommand);
@@ -187,7 +205,7 @@ public class GetTransactionUseCaseTest {
                                                                                     .build();
 
         AccountEntity accountEntity = DataUtils.mockAccountEntity();
-        Mockito.when(accountRepository.find(accountEntity.getId())).thenReturn(accountEntity);
+        Mockito.when(accountRepository.find(accountEntity.getId())).thenReturn(Optional.of(accountEntity));
 
         // WHEN
         List<TransactionResponse> transactionResponseList = getTransactionUseCase.find(transactionFinderCommand);

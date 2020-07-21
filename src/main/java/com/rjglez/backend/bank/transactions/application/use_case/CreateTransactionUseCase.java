@@ -1,6 +1,7 @@
 package com.rjglez.backend.bank.transactions.application.use_case;
 
 import com.rjglez.backend.bank.transactions.application.command.NewTransactionCommand;
+import com.rjglez.backend.bank.transactions.domain.exception.AccountDoesNotExistException;
 import com.rjglez.backend.bank.transactions.domain.exception.InsufficientBalanceException;
 import com.rjglez.backend.bank.transactions.domain.model.AccountEntity;
 import com.rjglez.backend.bank.transactions.domain.model.TransactionEntity;
@@ -33,7 +34,7 @@ public class CreateTransactionUseCase {
 
     private void processTransaction(TransactionEntity transactionEntity, String accountIban) {
 
-        AccountEntity account = accountRepository.find(accountIban);
+        AccountEntity account = accountRepository.find(accountIban).orElseThrow(() -> new AccountDoesNotExistException(accountIban));
 
         double amountToProcess = transactionEntity.getAmountToProcess();
 
@@ -45,5 +46,6 @@ public class CreateTransactionUseCase {
             log.error("Insufficient balance in account. Current balance in account is {} and the amount to process is {}", account.getBalance(), amountToProcess);
             throw new InsufficientBalanceException(accountIban);
         }
+
     }
 }

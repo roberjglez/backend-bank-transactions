@@ -25,15 +25,8 @@ public class AccountRepositoryImpl implements AccountRepository {
     }
 
     @Override
-    public AccountEntity find(String accountIban) {
+    public Optional<AccountEntity> find(String accountIban) {
 
-        Optional<AccountEntity> account = accountJpaRepository.findById(accountIban);
-
-        if (account.isPresent()) {
-            return account.get();
-        } else {
-            log.error("Account with IBAN {} does not exist", accountIban);
-            throw new AccountDoesNotExistException(accountIban);
-        }
+        return accountJpaRepository.findById(accountIban);
     }
 }

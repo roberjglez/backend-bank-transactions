@@ -1,6 +1,7 @@
 package com.rjglez.backend.bank.transactions.application.use_case;
 
 import com.rjglez.backend.bank.transactions.application.command.NewTransactionCommand;
+import com.rjglez.backend.bank.transactions.domain.exception.AccountDoesNotExistException;
 import com.rjglez.backend.bank.transactions.domain.exception.InsufficientBalanceException;
 import com.rjglez.backend.bank.transactions.domain.model.AccountEntity;
 import com.rjglez.backend.bank.transactions.domain.model.TransactionEntity;
@@ -16,6 +17,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.times;
@@ -44,7 +46,7 @@ public class CreateTransactionUseCaseTest {
 
         double        balance       = 200.60;
         AccountEntity accountEntity = mockAccountEntity(newTransactionCommand, balance);
-        Mockito.when(accountRepository.find(newTransactionCommand.getAccountIban())).thenReturn(accountEntity);
+        Mockito.when(accountRepository.find(newTransactionCommand.getAccountIban())).thenReturn(Optional.of(accountEntity));
 
         // WHEN
         createTransactionUseCase.create(newTransactionCommand);
@@ -63,7 +65,7 @@ public class CreateTransactionUseCaseTest {
 
         double        balance       = 200.60;
         AccountEntity accountEntity = mockAccountEntity(newTransactionCommand, balance);
-        Mockito.when(accountRepository.find(newTransactionCommand.getAccountIban())).thenReturn(accountEntity);
+        Mockito.when(accountRepository.find(newTransactionCommand.getAccountIban())).thenReturn(Optional.of(accountEntity));
 
         // WHEN
         createTransactionUseCase.create(newTransactionCommand);
@@ -84,7 +86,23 @@ public class CreateTransactionUseCaseTest {
 
             double        insufficientBalance = 20.60;
             AccountEntity accountEntity       = mockAccountEntity(newTransactionCommand, insufficientBalance);
-            Mockito.when(accountRepository.find(newTransactionCommand.getAccountIban())).thenReturn(accountEntity);
+            Mockito.when(accountRepository.find(newTransactionCommand.getAccountIban())).thenReturn(Optional.of(accountEntity));
+
+            // WHEN
+            createTransactionUseCase.create(newTransactionCommand);
+
+        });
+    }
+
+    @Test
+    public void shouldThrowAccountDoesNotExistException() {
+
+        Assertions.assertThrows(AccountDoesNotExistException.class, () -> {
+
+            // GIVEN
+            double                amount                = -40.78;
+            NewTransactionCommand newTransactionCommand = DataUtils.createNewTransactionCommand(amount);
+            Mockito.when(accountRepository.find(newTransactionCommand.getAccountIban())).thenReturn(Optional.empty());
 
             // WHEN
             createTransactionUseCase.create(newTransactionCommand);

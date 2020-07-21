@@ -4,10 +4,14 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.rjglez.backend.bank.transactions.application.command.NewTransactionCommand;
+import com.rjglez.backend.bank.transactions.application.utils.DateUtils;
 import lombok.*;
 
 import javax.persistence.*;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
@@ -57,11 +61,40 @@ public class TransactionEntity {
     public void checkParameters() {
 
         this.id = Objects.isNull(this.id) ? UUID.randomUUID().toString() : this.id;
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        this.date = Objects.isNull(this.date) ? formatter.format(new Date()) : this.date;
+        this.date = Objects.isNull(this.date) ? DateUtils.FORMATTER.format(new Date()) : this.date;
     }
 
     public double getAmountToProcess() {
         return this.amount - this.fee;
+    }
+
+    public static void main (String [] args) throws ParseException {
+
+        Calendar startDay = Calendar.getInstance();
+        startDay.set(Calendar.HOUR_OF_DAY, 0);
+        startDay.set(Calendar.MINUTE, 0);
+        startDay.set(Calendar.SECOND, 0);
+        startDay.set(Calendar.MILLISECOND, 0);
+
+        Calendar endDay = Calendar.getInstance();
+        endDay.set(Calendar.HOUR_OF_DAY, 23);
+        endDay.set(Calendar.MINUTE, 59);
+        endDay.set(Calendar.SECOND, 59);
+        endDay.set(Calendar.MILLISECOND, 999);
+
+        Date startDayDate = startDay.getTime();
+        Date endDayDate = endDay.getTime();
+
+        String           stringDateExample       = "2019-07-16T16:55:42.000Z";
+        Date             dateExample       = DateUtils.FORMATTER.parse(stringDateExample);
+
+        if (dateExample.compareTo(startDayDate) > 0 && dateExample.compareTo(endDayDate) < 0) {
+            System.out.println("Same day");
+        } else if (dateExample.compareTo(startDayDate) < 0) {
+            System.out.println("Day " + dateExample + " es antes que " + startDayDate);
+        } else if (dateExample.compareTo(startDayDate) == 0) {
+            System.out.println("Day " + dateExample + " es después que " + startDayDate);
+        }
+
     }
 }

@@ -19,11 +19,10 @@ import java.util.stream.Stream;
 public class TransactionEntityTest {
 
     private static Stream<Arguments> parametersProvided() {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         return Stream.of(
-                Arguments.of(formatter.format(new Date()), UUID.randomUUID().toString()),
+                Arguments.of(DataUtils.FORMATTER.format(new Date()), UUID.randomUUID().toString()),
                 Arguments.of(null, UUID.randomUUID().toString()),
-                Arguments.of(formatter.format(new Date()), null),
+                Arguments.of(DataUtils.FORMATTER.format(new Date()), null),
                 Arguments.of(null, null)
         );
     }

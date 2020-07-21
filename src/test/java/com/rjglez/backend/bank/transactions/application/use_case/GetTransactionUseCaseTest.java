@@ -207,11 +207,9 @@ public class GetTransactionUseCaseTest {
 
     private List<TransactionEntity> createRandomTransactionsList() {
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-
         TransactionEntity transactionEntity1 = TransactionEntity.builder()
                                                                 .id(UUID.randomUUID().toString())
-                                                                .date(formatter.format(new Date()))
+                                                                .date(DataUtils.FORMATTER.format(new Date()))
                                                                 .amount(50.70)
                                                                 .fee(0.00)
                                                                 .description("Payment in restaurant")
@@ -222,7 +220,7 @@ public class GetTransactionUseCaseTest {
 
         TransactionEntity transactionEntity2 = TransactionEntity.builder()
                                                                 .id(UUID.randomUUID().toString())
-                                                                .date(formatter.format(new Date()))
+                                                                .date(DataUtils.FORMATTER.format(new Date()))
                                                                 .amount(63.80)
                                                                 .fee(3.76)
                                                                 .description("Payment in shop")
@@ -233,7 +231,7 @@ public class GetTransactionUseCaseTest {
 
         TransactionEntity transactionEntity3 = TransactionEntity.builder()
                                                                 .id(UUID.randomUUID().toString())
-                                                                .date(formatter.format(new Date()))
+                                                                .date(DataUtils.FORMATTER.format(new Date()))
                                                                 .amount(12.46)
                                                                 .fee(1.40)
                                                                 .description("Payment in restaurant")

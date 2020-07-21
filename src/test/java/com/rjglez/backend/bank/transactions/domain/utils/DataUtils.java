@@ -4,6 +4,7 @@ import com.rjglez.backend.bank.transactions.application.command.NewTransactionCo
 import com.rjglez.backend.bank.transactions.domain.model.AccountEntity;
 import com.rjglez.backend.bank.transactions.domain.model.TransactionEntity;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,14 +13,14 @@ import java.util.UUID;
 
 public class DataUtils {
 
-    public static NewTransactionCommand createTransactionCommand() {
+    public static final DateFormat FORMATTER = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    public static NewTransactionCommand createTransactionCommand() {
 
         return NewTransactionCommand.builder()
                                     .reference(UUID.randomUUID().toString())
                                     .accountIban("ES5220951741879861123899")
-                                    .date(formatter.format(new Date()))
+                                    .date(FORMATTER.format(new Date()))
                                     .amount(52.79)
                                     .fee(3.50)
                                     .description("Payment in market")
@@ -74,12 +75,10 @@ public class DataUtils {
 
     public static NewTransactionCommand createNewTransactionCommand(double amount) {
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-
         return NewTransactionCommand.builder()
                                     .reference(UUID.randomUUID().toString())
                                     .accountIban("ES5220951741879861123899")
-                                    .date(formatter.format(new Date()))
+                                    .date(FORMATTER.format(new Date()))
                                     .amount(amount)
                                     .fee(3.50)
                                     .description("Payment in market")

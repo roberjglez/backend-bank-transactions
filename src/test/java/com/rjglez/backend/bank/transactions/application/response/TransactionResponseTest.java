@@ -2,6 +2,7 @@ package com.rjglez.backend.bank.transactions.application.response;
 
 import com.rjglez.backend.bank.transactions.domain.model.AccountEntity;
 import com.rjglez.backend.bank.transactions.domain.model.TransactionEntity;
+import com.rjglez.backend.bank.transactions.domain.utils.DataUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,14 +35,12 @@ public class TransactionResponseTest {
 
     private TransactionEntity createTransactionEntity() {
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-
         return TransactionEntity.builder()
                                 .id(UUID.randomUUID().toString())
                                 .account(AccountEntity.builder()
                                                       .id(UUID.randomUUID().toString())
                                                       .build())
-                                .date(formatter.format(new Date()))
+                                .date(DataUtils.FORMATTER.format(new Date()))
                                 .amount(52.79)
                                 .fee(3.50)
                                 .description("Payment in market")

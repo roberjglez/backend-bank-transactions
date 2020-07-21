@@ -19,7 +19,7 @@ public class AccountRepositoryImpl implements AccountRepository {
     @Override
     public void save(AccountEntity accountEntity) {
 
-        log.debug("Account will be saved in DB: {}", accountEntity.toString());
+        log.info("Account will be saved in DB: {}", accountEntity.toString());
 
         accountJpaRepository.save(accountEntity);
     }

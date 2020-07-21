@@ -1,5 +1,6 @@
 package com.rjglez.backend.bank.transactions.application.command;
 
+import com.rjglez.backend.bank.transactions.domain.utils.DataUtils;
 import com.rjglez.backend.bank.transactions.infrastructure.presentation.NewTransactionPresentation;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
@@ -33,12 +34,10 @@ public class NewTransactionCommandTest {
 
     private NewTransactionPresentation createTransactionPresentation() {
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-
         return NewTransactionPresentation.builder()
                                          .reference(UUID.randomUUID().toString())
                                          .accountIban("ES5220951741879861123899")
-                                         .date(formatter.format(new Date()))
+                                         .date(DataUtils.FORMATTER.format(new Date()))
                                          .amount(52.79)
                                          .fee(3.50)
                                          .description("Payment in market")

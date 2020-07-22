@@ -67,34 +67,4 @@ public class TransactionEntity {
     public double getAmountToProcess() {
         return this.amount - this.fee;
     }
-
-    public static void main (String [] args) throws ParseException {
-
-        Calendar startDay = Calendar.getInstance();
-        startDay.set(Calendar.HOUR_OF_DAY, 0);
-        startDay.set(Calendar.MINUTE, 0);
-        startDay.set(Calendar.SECOND, 0);
-        startDay.set(Calendar.MILLISECOND, 0);
-
-        Calendar endDay = Calendar.getInstance();
-        endDay.set(Calendar.HOUR_OF_DAY, 23);
-        endDay.set(Calendar.MINUTE, 59);
-        endDay.set(Calendar.SECOND, 59);
-        endDay.set(Calendar.MILLISECOND, 999);
-
-        Date startDayDate = startDay.getTime();
-        Date endDayDate = endDay.getTime();
-
-        String           stringDateExample       = "2019-07-16T16:55:42.000Z";
-        Date             dateExample       = DateUtils.FORMATTER.parse(stringDateExample);
-
-        if (dateExample.compareTo(startDayDate) > 0 && dateExample.compareTo(endDayDate) < 0) {
-            System.out.println("Same day");
-        } else if (dateExample.compareTo(startDayDate) < 0) {
-            System.out.println("Day " + dateExample + " es antes que " + startDayDate);
-        } else if (dateExample.compareTo(startDayDate) == 0) {
-            System.out.println("Day " + dateExample + " es después que " + startDayDate);
-        }
-
-    }
 }

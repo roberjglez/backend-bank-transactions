@@ -23,20 +23,6 @@ public class TransactionStatusResponseTest {
     private static final String ATM_CHANNEL = "ATM";
     private static final String INTERNAL_CHANNEL = "INTERNAL";
 
-    private static Stream<Arguments> parametersProvided() {
-        return Stream.of(
-                Arguments.of(createTransactionEntity("2019-07-16T16:55:42.000Z"), TransactionStatusResponse.CLIENT_CHANNEL, TransactionStatusResponse.TransactionStatus.SETTLED),
-                Arguments.of(createTransactionEntity("2019-07-16T16:55:42.000Z"), TransactionStatusResponse.ATM_CHANNEL, TransactionStatusResponse.TransactionStatus.SETTLED),
-                Arguments.of(createTransactionEntity("2019-07-16T16:55:42.000Z"), TransactionStatusResponse.INTERNAL_CHANNEL, TransactionStatusResponse.TransactionStatus.SETTLED),
-                Arguments.of(createTransactionEntity("2023-07-16T16:55:42.000Z"), TransactionStatusResponse.CLIENT_CHANNEL, TransactionStatusResponse.TransactionStatus.FUTURE),
-                Arguments.of(createTransactionEntity("2023-07-16T16:55:42.000Z"), TransactionStatusResponse.ATM_CHANNEL, TransactionStatusResponse.TransactionStatus.PENDING),
-                Arguments.of(createTransactionEntity("2023-07-16T16:55:42.000Z"), TransactionStatusResponse.INTERNAL_CHANNEL, TransactionStatusResponse.TransactionStatus.FUTURE),
-                Arguments.of(createTransactionEntity(DataUtils.FORMATTER.format(new Date())), TransactionStatusResponse.CLIENT_CHANNEL, TransactionStatusResponse.TransactionStatus.PENDING),
-                Arguments.of(createTransactionEntity(DataUtils.FORMATTER.format(new Date())), TransactionStatusResponse.ATM_CHANNEL, TransactionStatusResponse.TransactionStatus.PENDING),
-                Arguments.of(createTransactionEntity(DataUtils.FORMATTER.format(new Date())), TransactionStatusResponse.INTERNAL_CHANNEL, TransactionStatusResponse.TransactionStatus.PENDING)
-        );
-    }
-
     @Test
     public void shouldReturnTransactionStatusResponseWhenTransactionIsNotStored() {
 
@@ -71,6 +57,20 @@ public class TransactionStatusResponseTest {
                 Assertions.assertThat(transactionStatusResponse.getFee()).isEqualTo(transactionEntity.getFee());
                 break;
         }
+    }
+
+    private static Stream<Arguments> parametersProvided() {
+        return Stream.of(
+                Arguments.of(createTransactionEntity("2019-07-16T16:55:42.000Z"), TransactionStatusResponse.CLIENT_CHANNEL, TransactionStatusResponse.TransactionStatus.SETTLED),
+                Arguments.of(createTransactionEntity("2019-07-16T16:55:42.000Z"), TransactionStatusResponse.ATM_CHANNEL, TransactionStatusResponse.TransactionStatus.SETTLED),
+                Arguments.of(createTransactionEntity("2019-07-16T16:55:42.000Z"), TransactionStatusResponse.INTERNAL_CHANNEL, TransactionStatusResponse.TransactionStatus.SETTLED),
+                Arguments.of(createTransactionEntity("2023-07-16T16:55:42.000Z"), TransactionStatusResponse.CLIENT_CHANNEL, TransactionStatusResponse.TransactionStatus.FUTURE),
+                Arguments.of(createTransactionEntity("2023-07-16T16:55:42.000Z"), TransactionStatusResponse.ATM_CHANNEL, TransactionStatusResponse.TransactionStatus.PENDING),
+                Arguments.of(createTransactionEntity("2023-07-16T16:55:42.000Z"), TransactionStatusResponse.INTERNAL_CHANNEL, TransactionStatusResponse.TransactionStatus.FUTURE),
+                Arguments.of(createTransactionEntity(DataUtils.FORMATTER.format(new Date())), TransactionStatusResponse.CLIENT_CHANNEL, TransactionStatusResponse.TransactionStatus.PENDING),
+                Arguments.of(createTransactionEntity(DataUtils.FORMATTER.format(new Date())), TransactionStatusResponse.ATM_CHANNEL, TransactionStatusResponse.TransactionStatus.PENDING),
+                Arguments.of(createTransactionEntity(DataUtils.FORMATTER.format(new Date())), TransactionStatusResponse.INTERNAL_CHANNEL, TransactionStatusResponse.TransactionStatus.PENDING)
+        );
     }
 
     private static TransactionEntity createTransactionEntity(String date) {

@@ -25,7 +25,6 @@ public class CreateTransactionUseCase {
         log.info("Process in CreateTransactionUseCase starts");
 
         TransactionEntity transactionEntity = TransactionEntity.of(newTransactionCommand);
-        transactionEntity.checkParameters();
 
         processTransaction(transactionEntity, newTransactionCommand.getAccountIban());
 

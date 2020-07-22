@@ -58,12 +58,6 @@ public class TransactionEntity {
                                 .build();
     }
 
-    public void checkParameters() {
-
-        this.id = Objects.isNull(this.id) ? UUID.randomUUID().toString() : this.id;
-        this.date = Objects.isNull(this.date) ? DateUtils.FORMATTER.format(new Date()) : this.date;
-    }
-
     public double getAmountToProcess() {
         return this.amount - this.fee;
     }

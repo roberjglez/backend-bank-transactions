@@ -7,11 +7,6 @@
 * Testing: Junit5 & Mockito
 * Database: Spring Data JPA, PostgreSQL, Flyway
 
-### How to run tests
-```
-mvn test
-```
-
 ### Important information before run the application
 1. **The database model has two tables: Account and Transaction.** By default, the table Account has two insertions:
 
@@ -38,6 +33,11 @@ mvn clean install
 2. **Run docker-compose to start PostgreSQL and the Spring Boot application**
 ```
 docker-compose up
+```
+
+### How to run tests
+```
+mvn test
 ```
 
 ### Example to test the application:

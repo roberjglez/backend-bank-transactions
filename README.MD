@@ -13,7 +13,7 @@ mvn test
 ```
 
 ### Important information before run the application
-1. **The model DB has two tables: Account and Transaction.** By default, the table Account has two insertions:
+1. **The database model has two tables: Account and Transaction.** By default, the table Account has two insertions:
 
 Account ES3930294948393 with balance 200.60
 
@@ -22,7 +22,7 @@ Account ES8914658276573 with balance 3467.50
 2. **The service has 3 endpoints:**
 * **Create transaction (/transaction)**-> the date in the payload is provided with the following format *yyyy-MM-dd'T'HH:mm:ss.SSS'Z'*. If the iban account provided is related with an account that is not stored in the system, an exception will be thrown. If transaction leaves the total account balance below 0, it is not allowed and an exception will be thrown.
 
-* **Get transaction (/transaction)**-> Possibility to get all transactions from DB (/transaction), all transactions from DB sorting ascending or descending (/transaction?sorting=descending), all transactions from DB for specific iban account (/transaction?accountIban=ES3930294948393) and all transactions from DB for specific iban account sorting ascending or descending (/transaction?accountIban=ES3930294948393&sorting=descending)
+* **Get transaction (/transaction)**-> Possibility to get all transactions from database (/transaction), all transactions from database sorting ascending or descending (/transaction?sorting=descending), all transactions from database for specific iban account (/transaction?accountIban=ES3930294948393) or all transactions from database for specific iban account sorting ascending or descending (/transaction?accountIban=ES3930294948393&sorting=descending)
 
 * **Search transaction status (/transaction-status)**
 

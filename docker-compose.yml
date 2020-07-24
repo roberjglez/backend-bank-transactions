@@ -1,0 +1,16 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=bank-transactions
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db

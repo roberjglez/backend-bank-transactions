@@ -13,6 +13,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -47,15 +48,20 @@ public class TransactionStatusResponseTest {
         // THEN
         Assertions.assertThat(transactionStatusResponse.getReference()).isEqualTo(transactionEntity.getId());
         Assertions.assertThat(transactionStatusResponse.getStatus()).isEqualTo(expectedStatus);
-        switch (channel) {
-            case CLIENT_CHANNEL:
-            case ATM_CHANNEL:
-                Assertions.assertThat(transactionStatusResponse.getAmount()).isEqualTo(transactionEntity.getAmount() - transactionEntity.getFee());
-                break;
-            case INTERNAL_CHANNEL:
-                Assertions.assertThat(transactionStatusResponse.getAmount()).isEqualTo(transactionEntity.getAmount());
-                Assertions.assertThat(transactionStatusResponse.getFee()).isEqualTo(transactionEntity.getFee());
-                break;
+        if (Objects.isNull(channel)) {
+            Assertions.assertThat(transactionStatusResponse.getAmount()).isEqualTo(transactionEntity.getAmount());
+            Assertions.assertThat(transactionStatusResponse.getFee()).isEqualTo(transactionEntity.getFee());
+        } else {
+            switch (channel) {
+                case CLIENT_CHANNEL:
+                case ATM_CHANNEL:
+                    Assertions.assertThat(transactionStatusResponse.getAmount()).isEqualTo(transactionEntity.getAmount() - transactionEntity.getFee());
+                    break;
+                case INTERNAL_CHANNEL:
+                    Assertions.assertThat(transactionStatusResponse.getAmount()).isEqualTo(transactionEntity.getAmount());
+                    Assertions.assertThat(transactionStatusResponse.getFee()).isEqualTo(transactionEntity.getFee());
+                    break;
+            }
         }
     }
 
@@ -64,12 +70,15 @@ public class TransactionStatusResponseTest {
                 Arguments.of(createTransactionEntity("2019-07-16T16:55:42.000Z"), TransactionStatusResponse.CLIENT_CHANNEL, TransactionStatusResponse.TransactionStatus.SETTLED),
                 Arguments.of(createTransactionEntity("2019-07-16T16:55:42.000Z"), TransactionStatusResponse.ATM_CHANNEL, TransactionStatusResponse.TransactionStatus.SETTLED),
                 Arguments.of(createTransactionEntity("2019-07-16T16:55:42.000Z"), TransactionStatusResponse.INTERNAL_CHANNEL, TransactionStatusResponse.TransactionStatus.SETTLED),
+                Arguments.of(createTransactionEntity("2019-07-16T16:55:42.000Z"), null, TransactionStatusResponse.TransactionStatus.SETTLED),
                 Arguments.of(createTransactionEntity("2023-07-16T16:55:42.000Z"), TransactionStatusResponse.CLIENT_CHANNEL, TransactionStatusResponse.TransactionStatus.FUTURE),
                 Arguments.of(createTransactionEntity("2023-07-16T16:55:42.000Z"), TransactionStatusResponse.ATM_CHANNEL, TransactionStatusResponse.TransactionStatus.PENDING),
                 Arguments.of(createTransactionEntity("2023-07-16T16:55:42.000Z"), TransactionStatusResponse.INTERNAL_CHANNEL, TransactionStatusResponse.TransactionStatus.FUTURE),
+                Arguments.of(createTransactionEntity("2023-07-16T16:55:42.000Z"), null, TransactionStatusResponse.TransactionStatus.FUTURE),
                 Arguments.of(createTransactionEntity(DataUtils.FORMATTER.format(new Date())), TransactionStatusResponse.CLIENT_CHANNEL, TransactionStatusResponse.TransactionStatus.PENDING),
                 Arguments.of(createTransactionEntity(DataUtils.FORMATTER.format(new Date())), TransactionStatusResponse.ATM_CHANNEL, TransactionStatusResponse.TransactionStatus.PENDING),
-                Arguments.of(createTransactionEntity(DataUtils.FORMATTER.format(new Date())), TransactionStatusResponse.INTERNAL_CHANNEL, TransactionStatusResponse.TransactionStatus.PENDING)
+                Arguments.of(createTransactionEntity(DataUtils.FORMATTER.format(new Date())), TransactionStatusResponse.INTERNAL_CHANNEL, TransactionStatusResponse.TransactionStatus.PENDING),
+                Arguments.of(createTransactionEntity(DataUtils.FORMATTER.format(new Date())), null, TransactionStatusResponse.TransactionStatus.PENDING)
         );
     }
 

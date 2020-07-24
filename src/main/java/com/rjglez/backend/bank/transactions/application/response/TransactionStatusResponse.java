@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.Objects;
 
 @Slf4j
 @Data
@@ -60,21 +61,26 @@ public class TransactionStatusResponse {
         TransactionStatusResponse transactionStatusResponse = TransactionStatusResponse.builder()
                                                                                        .reference(transactionEntity.getId())
                                                                                        .build();
-
-        switch (channel) {
-            case CLIENT_CHANNEL:
-                transactionStatusResponse.setStatus(TransactionStatus.FUTURE);
-                transactionStatusResponse.setAmount(transactionEntity.getAmountToProcess());
-                break;
-            case ATM_CHANNEL:
-                transactionStatusResponse.setStatus(TransactionStatus.PENDING);
-                transactionStatusResponse.setAmount(transactionEntity.getAmountToProcess());
-                break;
-            case INTERNAL_CHANNEL:
-                transactionStatusResponse.setStatus(TransactionStatus.FUTURE);
-                transactionStatusResponse.setAmount(transactionEntity.getAmount());
-                transactionStatusResponse.setFee(transactionEntity.getFee());
-                break;
+        if (Objects.isNull(channel)) {
+            transactionStatusResponse.setStatus(TransactionStatus.FUTURE);
+            transactionStatusResponse.setAmount(transactionEntity.getAmount());
+            transactionStatusResponse.setFee(transactionEntity.getFee());
+        } else {
+            switch (channel) {
+                case CLIENT_CHANNEL:
+                    transactionStatusResponse.setStatus(TransactionStatus.FUTURE);
+                    transactionStatusResponse.setAmount(transactionEntity.getAmountToProcess());
+                    break;
+                case ATM_CHANNEL:
+                    transactionStatusResponse.setStatus(TransactionStatus.PENDING);
+                    transactionStatusResponse.setAmount(transactionEntity.getAmountToProcess());
+                    break;
+                case INTERNAL_CHANNEL:
+                    transactionStatusResponse.setStatus(TransactionStatus.FUTURE);
+                    transactionStatusResponse.setAmount(transactionEntity.getAmount());
+                    transactionStatusResponse.setFee(transactionEntity.getFee());
+                    break;
+            }
         }
 
         return transactionStatusResponse;
@@ -84,17 +90,24 @@ public class TransactionStatusResponse {
         TransactionStatusResponse transactionStatusResponse = TransactionStatusResponse.builder()
                                                                                        .reference(transactionEntity.getId())
                                                                                        .build();
-        switch (channel) {
-            case CLIENT_CHANNEL:
-            case ATM_CHANNEL:
-                transactionStatusResponse.setStatus(TransactionStatus.SETTLED);
-                transactionStatusResponse.setAmount(transactionEntity.getAmountToProcess());
-                break;
-            case INTERNAL_CHANNEL:
-                transactionStatusResponse.setStatus(TransactionStatus.SETTLED);
-                transactionStatusResponse.setAmount(transactionEntity.getAmount());
-                transactionStatusResponse.setFee(transactionEntity.getFee());
-                break;
+
+        if (Objects.isNull(channel)) {
+            transactionStatusResponse.setStatus(TransactionStatus.SETTLED);
+            transactionStatusResponse.setAmount(transactionEntity.getAmount());
+            transactionStatusResponse.setFee(transactionEntity.getFee());
+        } else {
+            switch (channel) {
+                case CLIENT_CHANNEL:
+                case ATM_CHANNEL:
+                    transactionStatusResponse.setStatus(TransactionStatus.SETTLED);
+                    transactionStatusResponse.setAmount(transactionEntity.getAmountToProcess());
+                    break;
+                case INTERNAL_CHANNEL:
+                    transactionStatusResponse.setStatus(TransactionStatus.SETTLED);
+                    transactionStatusResponse.setAmount(transactionEntity.getAmount());
+                    transactionStatusResponse.setFee(transactionEntity.getFee());
+                    break;
+            }
         }
 
         return transactionStatusResponse;
@@ -104,17 +117,24 @@ public class TransactionStatusResponse {
         TransactionStatusResponse transactionStatusResponse = TransactionStatusResponse.builder()
                                                                                        .reference(transactionEntity.getId())
                                                                                        .build();
-        switch (channel) {
-            case CLIENT_CHANNEL:
-            case ATM_CHANNEL:
-                transactionStatusResponse.setStatus(TransactionStatus.PENDING);
-                transactionStatusResponse.setAmount(transactionEntity.getAmountToProcess());
-                break;
-            case INTERNAL_CHANNEL:
-                transactionStatusResponse.setStatus(TransactionStatus.PENDING);
-                transactionStatusResponse.setAmount(transactionEntity.getAmount());
-                transactionStatusResponse.setFee(transactionEntity.getFee());
-                break;
+
+        if (Objects.isNull(channel)) {
+            transactionStatusResponse.setStatus(TransactionStatus.PENDING);
+            transactionStatusResponse.setAmount(transactionEntity.getAmount());
+            transactionStatusResponse.setFee(transactionEntity.getFee());
+        } else {
+            switch (channel) {
+                case CLIENT_CHANNEL:
+                case ATM_CHANNEL:
+                    transactionStatusResponse.setStatus(TransactionStatus.PENDING);
+                    transactionStatusResponse.setAmount(transactionEntity.getAmountToProcess());
+                    break;
+                case INTERNAL_CHANNEL:
+                    transactionStatusResponse.setStatus(TransactionStatus.PENDING);
+                    transactionStatusResponse.setAmount(transactionEntity.getAmount());
+                    transactionStatusResponse.setFee(transactionEntity.getFee());
+                    break;
+            }
         }
 
         return transactionStatusResponse;

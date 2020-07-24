@@ -1,10 +1,7 @@
 package com.rjglez.backend.bank.transactions.application.use_case;
 
-import com.rjglez.backend.bank.transactions.application.command.NewTransactionCommand;
 import com.rjglez.backend.bank.transactions.application.command.TransactionStatusFinderCommand;
 import com.rjglez.backend.bank.transactions.application.response.TransactionStatusResponse;
-import com.rjglez.backend.bank.transactions.domain.exception.ChannelNotProvidedException;
-import com.rjglez.backend.bank.transactions.domain.exception.InsufficientBalanceException;
 import com.rjglez.backend.bank.transactions.domain.model.AccountEntity;
 import com.rjglez.backend.bank.transactions.domain.model.TransactionEntity;
 import com.rjglez.backend.bank.transactions.domain.port.repository.TransactionRepository;

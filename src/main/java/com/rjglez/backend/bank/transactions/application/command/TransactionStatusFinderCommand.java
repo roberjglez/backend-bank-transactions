@@ -1,6 +1,5 @@
 package com.rjglez.backend.bank.transactions.application.command;
 
-import com.rjglez.backend.bank.transactions.domain.exception.ChannelNotProvidedException;
 import com.rjglez.backend.bank.transactions.domain.exception.IncorrectChannelProvidedException;
 import com.rjglez.backend.bank.transactions.infrastructure.presentation.SearchTransactionStatusPresentation;
 import lombok.AllArgsConstructor;
@@ -38,8 +37,7 @@ public class TransactionStatusFinderCommand {
     private static void checkChannelProvided(String channel) {
 
         if (Objects.isNull(channel)) {
-            log.error("Channel not provided, will throw ChannelNotProvidedException");
-            throw new ChannelNotProvidedException();
+            log.info("Channel not provided");
         } else {
             boolean correctChannel = isCorrectChannel(channel);
             if (!correctChannel) {

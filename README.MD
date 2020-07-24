@@ -1,38 +1,47 @@
-Spring Boot application to handle bank transactions
+# Spring Boot application to handle bank transactions
 
-Tech stack:
-Spring Boot 2.3.1
-Maven
-Docker
-Arquitecture: DDD and hexagonal arquitecture
-Code language: Java 1.8
-Testing: Junit5 & Mockito
-Database: Spring Data JPA, PostgreSQL, Flyway
+### Tech stack
+* Spring Boot 2.3.1, Maven, Docker
+* Arquitecture: DDD and hexagonal arquitecture
+* Code language: Java 1.8
+* Testing: Junit5 & Mockito
+* Database: Spring Data JPA, PostgreSQL, Flyway
 
-How to run tests
+### How to run tests
+```
 mvn test
+```
 
-Important information before run the application
-1. The model DB has two tables: Account and Transaction. By default, the table Account has two insertions:
+### Important information before run the application
+1. **The model DB has two tables: Account and Transaction.** By default, the table Account has two insertions:
+
 Account ES3930294948393 with balance 200.60
+
 Account ES8914658276573 with balance 3467.50
 
-2. The service has 3 endpoints:
-Create transaction (/transaction)-> the date in the payload is provided with the following format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'. If the iban account provided is related with an account that is not stored in the system, an exception will be thrown. If transaction leaves the total account balance below 0, it is not allowed and an exception will be thrown.
-Get transaction (/transaction)-> Possibility to get all transactions from DB (/transaction), all transactions from DB sorting ascending or descending (/transaction?sorting=descending), all transactions from DB for specific iban account (/transaction?accountIban=ES3930294948393) and all transactions from DB for specific iban account sorting ascending or descending (/transaction?accountIban=ES3930294948393&sorting=descending)
-Search transaction status (/transaction-status)
+2. **The service has 3 endpoints:**
+* **Create transaction (/transaction)**-> the date in the payload is provided with the following format *yyyy-MM-dd'T'HH:mm:ss.SSS'Z'*. If the iban account provided is related with an account that is not stored in the system, an exception will be thrown. If transaction leaves the total account balance below 0, it is not allowed and an exception will be thrown.
 
-How to run the microservice:
-1. Build the app
+* **Get transaction (/transaction)**-> Possibility to get all transactions from DB (/transaction), all transactions from DB sorting ascending or descending (/transaction?sorting=descending), all transactions from DB for specific iban account (/transaction?accountIban=ES3930294948393) and all transactions from DB for specific iban account sorting ascending or descending (/transaction?accountIban=ES3930294948393&sorting=descending)
+
+* **Search transaction status (/transaction-status)**
+
+### How to run the microservice:
+1. **Build the app**
+```
 mvn clean install
+```
 
-2. Run docker-compose to start PostgreSQL and the Spring Boot application
+2. **Run docker-compose to start PostgreSQL and the Spring Boot application**
+```
 docker-compose up
+```
 
-Example to test the application:
-1. Open Postman
+### Example to test the application:
+1. **Open Postman**
 
-2. POST call to endpoint http://localhost:8080/transaction with the following body:
+2. **POST call to endpoint http://localhost:8080/transaction with the following body:**
+
 {
     "reference": "85b37cac-e8c2-46f4-8c77-e11f0cff16b1",
     "account_iban": "ES3930294948393",
@@ -42,9 +51,10 @@ Example to test the application:
     "description": "Payment in restaurant" 
 }
 
-3. GET call to endpoint http://localhost:8080/transaction?accountIban=ES3930294948393&sorting=descending
+3. **GET call to endpoint http://localhost:8080/transaction?accountIban=ES3930294948393&sorting=descending**
 
-4. GET call to endpoint http://localhost:8080/transaction-status with the following body:
+4. **GET call to endpoint http://localhost:8080/transaction-status with the following body:**
+
 {
     "reference": "85b37cac-e8c2-46f4-8c77-e11f0cff16b1",
     "channel": "CLIENT"

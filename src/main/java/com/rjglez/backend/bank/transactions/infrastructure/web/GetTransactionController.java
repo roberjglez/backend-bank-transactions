@@ -3,6 +3,7 @@ package com.rjglez.backend.bank.transactions.infrastructure.web;
 import com.rjglez.backend.bank.transactions.application.command.TransactionFinderCommand;
 import com.rjglez.backend.bank.transactions.application.response.TransactionResponse;
 import com.rjglez.backend.bank.transactions.application.use_case.GetTransactionUseCase;
+import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -21,7 +22,9 @@ public class GetTransactionController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<List<TransactionResponse>> getTransaction(@RequestParam(required = false) String accountIban,
+    public ResponseEntity<List<TransactionResponse>> getTransaction(@ApiParam(name = "accountIban", value = "Account iban related to the transaction", example = "ES3930294948393")
+                                                                    @RequestParam(required = false) String accountIban,
+                                                                    @ApiParam(name = "sorting", value = "Sorting type desired [ascending, descending]", example = "ascending")
                                                                     @RequestParam(required = false) String sorting) {
 
         log.info("Executing get transaction endpoint");

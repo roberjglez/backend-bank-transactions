@@ -4,6 +4,7 @@ import com.rjglez.backend.bank.transactions.application.command.TransactionStatu
 import com.rjglez.backend.bank.transactions.application.response.TransactionStatusResponse;
 import com.rjglez.backend.bank.transactions.application.use_case.SearchTransactionStatusUseCase;
 import com.rjglez.backend.bank.transactions.infrastructure.presentation.SearchTransactionStatusPresentation;
+import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -23,7 +24,8 @@ public class SearchTransactionStatusController {
 
     @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<TransactionStatusResponse> getTransaction(@Valid @RequestBody SearchTransactionStatusPresentation searchTransactionStatusPresentation) throws ParseException {
+    public ResponseEntity<TransactionStatusResponse> getTransaction(@ApiParam(name = "searchTransactionStatusPresentation", value = "Reference and channel of the desired transaction", required = true)
+                                                                    @Valid @RequestBody SearchTransactionStatusPresentation searchTransactionStatusPresentation) throws ParseException {
 
         log.info("Executing search transaction status endpoint");
 

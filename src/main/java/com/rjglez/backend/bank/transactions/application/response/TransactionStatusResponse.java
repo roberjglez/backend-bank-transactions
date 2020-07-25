@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.rjglez.backend.bank.transactions.application.utils.DateUtils;
 import com.rjglez.backend.bank.transactions.domain.model.TransactionEntity;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -18,15 +20,23 @@ import java.util.Objects;
 @Builder
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
+@ApiModel(value = "TransactionStatusResponse", description = "Transaction status response information")
 public class TransactionStatusResponse {
 
     public static final String CLIENT_CHANNEL   = "CLIENT";
     public static final String ATM_CHANNEL      = "ATM";
     public static final String INTERNAL_CHANNEL = "INTERNAL";
 
+    @ApiModelProperty(notes = "Transaction reference", example = "7ade4b27-40b5-4080-bc28-dbb13ef54c50", dataType = "String", position = 0)
     private String            reference;
+
+    @ApiModelProperty(notes = "Transaction status", example = "SETTLED", dataType = "TransactionStatus", position = 1)
     private TransactionStatus status;
+
+    @ApiModelProperty(notes = "Transaction amount", example = "42.33", dataType = "Double", position = 2)
     private Double            amount;
+
+    @ApiModelProperty(notes = "Transaction fee", example = "3.50", dataType = "String", position = 3)
     private Double            fee;
 
     public static TransactionStatusResponse ofTransactionNotStored(String reference) {

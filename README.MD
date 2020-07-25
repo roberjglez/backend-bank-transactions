@@ -1,7 +1,7 @@
 # Spring Boot application to handle bank transactions
 
 ### Tech stack
-* Spring Boot 2.3.1, Maven, Docker
+* Spring Boot 2.3.1, Maven, Docker, Swagger
 * Arquitecture: DDD and hexagonal arquitecture
 * Code language: Java 1.8
 * Testing: Junit5 & Mockito
@@ -35,13 +35,18 @@ mvn clean install
 docker-compose up
 ```
 
+### Where can I see information about the microservice?:
+
+In the following URL: http://localhost:8080/swagger-ui.html
+
+
 ### How to run tests
 ```
 mvn test
 ```
 
 ### Example to test the application:
-1. **Open Postman**
+1. **Open Swagger**
 
 2. **POST call to endpoint http://localhost:8080/transaction with the following body:**
 

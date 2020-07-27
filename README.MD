@@ -59,7 +59,7 @@ mvn test
     "description": "Payment in restaurant" 
 }
 
-**Note:** reference, date, fee and description are optionals.
+**Note:** account_iban and amount are mandatories.
 
 3. **GET call to endpoint http://localhost:8080/transaction?accountIban=ES3930294948393&sorting=descending**
 
@@ -72,4 +72,4 @@ mvn test
     "channel": "CLIENT"
 }
 
-**Note:** channel is optional.
+**Note:** reference is mandatory.

@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebMvcTest(value = SearchTransactionStatusController.class)
-public class SearchTransactionStatusControllerTest {
+public class SearchTransactionStatusControllerIT {
 
     private String searchTransactionStatusEndpoint;
 

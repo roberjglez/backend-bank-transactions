@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebMvcTest(value = CreateTransactionController.class)
-public class CreateTransactionControllerTest {
+public class CreateTransactionControllerIT {
 
     private String createTransactionEndpoint;
 

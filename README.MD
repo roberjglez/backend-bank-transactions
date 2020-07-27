@@ -63,9 +63,13 @@ mvn test
 
 3. **GET call to endpoint http://localhost:8080/transaction?accountIban=ES3930294948393&sorting=descending**
 
+**Note:** request parameters accountIban and sorting are optionals.
+
 4. **GET call to endpoint http://localhost:8080/transaction-status with the following body:**
 
 {
     "reference": "85b37cac-e8c2-46f4-8c77-e11f0cff16b1",
     "channel": "CLIENT"
 }
+
+**Note:** channel is optional.

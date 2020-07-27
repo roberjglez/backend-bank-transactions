@@ -36,4 +36,13 @@ public class ExceptionsHandlerTest {
         Assertions.assertThat(response.getBody()).isNotNull();
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
+
+    @Test
+    public void shouldReturnHttpStatusBadRequestWhenThrownParameterMandatoryNotFoundException() {
+        ExceptionsHandler      handler  = new ExceptionsHandler();
+        ResponseEntity<Object> response = handler.handlerParameterMandatoryNotFoundException(new ParameterMandatoryNotFoundException("reference"));
+        Assertions.assertThat(response).isNotNull();
+        Assertions.assertThat(response.getBody()).isNotNull();
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
 }

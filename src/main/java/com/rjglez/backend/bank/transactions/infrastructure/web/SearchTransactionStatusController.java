@@ -4,6 +4,7 @@ import com.rjglez.backend.bank.transactions.application.command.TransactionStatu
 import com.rjglez.backend.bank.transactions.application.response.TransactionStatusResponse;
 import com.rjglez.backend.bank.transactions.application.use_case.SearchTransactionStatusUseCase;
 import com.rjglez.backend.bank.transactions.infrastructure.presentation.SearchTransactionStatusPresentation;
+import com.rjglez.backend.bank.transactions.infrastructure.web.validation.ValidationUtils;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,8 @@ public class SearchTransactionStatusController {
     @ResponseBody
     public ResponseEntity<TransactionStatusResponse> getTransaction(@ApiParam(name = "searchTransactionStatusPresentation", value = "Reference and channel of the desired transaction", required = true)
                                                                     @Valid @RequestBody SearchTransactionStatusPresentation searchTransactionStatusPresentation) throws ParseException {
+
+        ValidationUtils.validateFields(searchTransactionStatusPresentation);
 
         log.info("Executing search transaction status endpoint");
 

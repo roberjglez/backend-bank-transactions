@@ -27,10 +27,10 @@ public class NewTransactionPresentation {
 
     @NotNull(message = "Amount is mandatory")
     @ApiModelProperty(required = true, notes = "Transaction amount", example = "42.33", dataType = "double", position = 4)
-    private double amount;
+    private Double amount;
 
     @ApiModelProperty(notes = "Transaction fee", example = "3.50", dataType = "String", position = 5)
-    private double fee;
+    private Double fee;
 
     @ApiModelProperty(notes = "Transaction description", example = "Payment in restaurant", dataType = "String", position = 6)
     private String description;

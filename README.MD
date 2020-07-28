@@ -27,7 +27,7 @@ Account ES8914658276573 with balance 3467.50
 ### How to run the microservice:
 1. **Build the app**
 ```
-mvn clean install
+mvn clean install -Dmaven.test.skip=true
 ```
 
 2. **Run docker-compose to start PostgreSQL and the Spring Boot application**

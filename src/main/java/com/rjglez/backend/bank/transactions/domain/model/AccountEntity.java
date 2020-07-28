@@ -37,7 +37,7 @@ public class AccountEntity {
     }
 
     public void modifyBalance(double amountToProcess) {
-        double newBalance = this.getBalance() + amountToProcess;
+        double newBalance = this.balance + amountToProcess;
         this.setBalance(newBalance);
     }
 

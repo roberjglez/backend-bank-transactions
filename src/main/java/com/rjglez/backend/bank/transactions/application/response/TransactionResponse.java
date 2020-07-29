@@ -14,22 +14,22 @@ import lombok.Data;
 @ApiModel(value = "TransactionResponse", description = "Transaction response information")
 public class TransactionResponse {
 
-    @ApiModelProperty(notes = "Transaction reference", example = "7ade4b27-40b5-4080-bc28-dbb13ef54c50", dataType = "String", position = 0)
+    @ApiModelProperty(notes = "Transaction reference", example = "7ade4b27-40b5-4080-bc28-dbb13ef54c50", dataType = "String")
     private String reference;
 
-    @ApiModelProperty(notes = "Account iban related to the transaction", example = "ES3930294948393", dataType = "String", position = 1)
+    @ApiModelProperty(notes = "Account iban related to the transaction", example = "ES3930294948393", dataType = "String")
     private String accountIban;
 
-    @ApiModelProperty(notes = "Transaction date", example = "2019-07-16T16:55:42.000Z", dataType = "String", position = 2)
+    @ApiModelProperty(notes = "Transaction date", example = "2019-07-16T16:55:42.000Z", dataType = "String")
     private String date;
 
-    @ApiModelProperty(notes = "Transaction amount", example = "42.33", dataType = "double", position = 3)
+    @ApiModelProperty(notes = "Transaction amount", example = "42.33", dataType = "double")
     private double amount;
 
-    @ApiModelProperty(notes = "Transaction fee", example = "3.50", dataType = "String", position = 4)
+    @ApiModelProperty(notes = "Transaction fee", example = "3.50", dataType = "String")
     private double fee;
 
-    @ApiModelProperty(notes = "Transaction description", example = "Payment in restaurant", dataType = "String", position = 5)
+    @ApiModelProperty(notes = "Transaction description", example = "Payment in restaurant", dataType = "String")
     private String description;
 
     public static TransactionResponse of(TransactionEntity transactionEntity) {

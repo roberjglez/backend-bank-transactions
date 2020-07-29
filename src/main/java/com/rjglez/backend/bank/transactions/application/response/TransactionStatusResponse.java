@@ -27,16 +27,16 @@ public class TransactionStatusResponse {
     public static final String ATM_CHANNEL      = "ATM";
     public static final String INTERNAL_CHANNEL = "INTERNAL";
 
-    @ApiModelProperty(notes = "Transaction reference", example = "7ade4b27-40b5-4080-bc28-dbb13ef54c50", dataType = "String", position = 0)
+    @ApiModelProperty(notes = "Transaction reference", example = "7ade4b27-40b5-4080-bc28-dbb13ef54c50", dataType = "String")
     private String            reference;
 
-    @ApiModelProperty(notes = "Transaction status", example = "SETTLED", dataType = "TransactionStatus", position = 1)
+    @ApiModelProperty(notes = "Transaction status", example = "SETTLED", dataType = "TransactionStatus")
     private TransactionStatus status;
 
-    @ApiModelProperty(notes = "Transaction amount", example = "42.33", dataType = "Double", position = 2)
+    @ApiModelProperty(notes = "Transaction amount", example = "42.33", dataType = "Double")
     private Double            amount;
 
-    @ApiModelProperty(notes = "Transaction fee", example = "3.50", dataType = "String", position = 3)
+    @ApiModelProperty(notes = "Transaction fee", example = "3.50", dataType = "String")
     private Double            fee;
 
     public static TransactionStatusResponse ofTransactionNotStored(String reference) {

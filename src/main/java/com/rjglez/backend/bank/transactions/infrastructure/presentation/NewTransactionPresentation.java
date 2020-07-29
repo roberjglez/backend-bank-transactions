@@ -16,24 +16,23 @@ import javax.validation.constraints.NotNull;
 @ApiModel(value = "NewTransactionPresentation", description = "New transaction information")
 public class NewTransactionPresentation {
 
-    @ApiModelProperty(notes = "Transaction reference", example = "7ade4b27-40b5-4080-bc28-dbb13ef54c50", dataType = "String", position = 1)
+    @ApiModelProperty(notes = "Transaction reference", example = "7ade4b27-40b5-4080-bc28-dbb13ef54c50", dataType = "String")
     private String reference;
 
-    @NotNull(message = "Account iban is mandatory")
-    @NotBlank(message = "Account iban can not be null")
-    @ApiModelProperty(required = true, notes = "Account iban related to the transaction", example = "ES3930294948393", dataType = "String", position = 2)
+    @NotBlank(message = "Account iban is mandatory")
+    @ApiModelProperty(required = true, notes = "Account iban related to the transaction", example = "ES3930294948393", dataType = "String")
     private String accountIban;
 
-    @ApiModelProperty(notes = "Transaction date", example = "2019-07-16T16:55:42.000Z", dataType = "String", position = 3)
+    @ApiModelProperty(notes = "Transaction date", example = "2019-07-16T16:55:42.000Z", dataType = "String")
     private String date;
 
     @NotNull(message = "Amount is mandatory")
-    @ApiModelProperty(required = true, notes = "Transaction amount", example = "42.33", dataType = "double", position = 4)
+    @ApiModelProperty(required = true, notes = "Transaction amount", example = "42.33", dataType = "double")
     private Double amount;
 
-    @ApiModelProperty(notes = "Transaction fee", example = "3.50", dataType = "String", position = 5)
+    @ApiModelProperty(notes = "Transaction fee", example = "3.50", dataType = "String")
     private Double fee;
 
-    @ApiModelProperty(notes = "Transaction description", example = "Payment in restaurant", dataType = "String", position = 6)
+    @ApiModelProperty(notes = "Transaction description", example = "Payment in restaurant", dataType = "String")
     private String description;
 }

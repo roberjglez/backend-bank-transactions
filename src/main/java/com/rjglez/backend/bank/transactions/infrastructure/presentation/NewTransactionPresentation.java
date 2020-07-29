@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Data
@@ -19,6 +20,7 @@ public class NewTransactionPresentation {
     private String reference;
 
     @NotNull(message = "Account iban is mandatory")
+    @NotBlank(message = "Account iban can not be null")
     @ApiModelProperty(required = true, notes = "Account iban related to the transaction", example = "ES3930294948393", dataType = "String", position = 2)
     private String accountIban;
 

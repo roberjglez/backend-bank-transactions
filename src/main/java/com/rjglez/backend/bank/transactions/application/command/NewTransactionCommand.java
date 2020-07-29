@@ -39,7 +39,7 @@ public class NewTransactionCommand {
 
     private static void checkParameters(NewTransactionCommand newTransactionCommand) {
 
-        newTransactionCommand.reference = Objects.isNull(newTransactionCommand.reference) ? UUID.randomUUID().toString() : newTransactionCommand.reference;
-        newTransactionCommand.date = Objects.isNull(newTransactionCommand.date) ? DateUtils.FORMATTER.format(new Date()) : newTransactionCommand.date;
+        newTransactionCommand.reference = Objects.isNull(newTransactionCommand.reference) || newTransactionCommand.reference.isEmpty() ? UUID.randomUUID().toString() : newTransactionCommand.reference;
+        newTransactionCommand.date = Objects.isNull(newTransactionCommand.date) || newTransactionCommand.date.isEmpty() ? DateUtils.FORMATTER.format(new Date()) : newTransactionCommand.date;
     }
 }

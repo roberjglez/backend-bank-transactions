@@ -43,7 +43,7 @@ public class GetTransactionUseCase {
         List<TransactionEntity> transactionsEntitiesList = new ArrayList<>();
         String accountIban = transactionFinderCommand.getAccountIban();
 
-        if (Objects.isNull(accountIban)) {
+        if (Objects.isNull(accountIban) || accountIban.isEmpty()) {
             log.info("Account IBAN not provided, DB will return all transactions");
             transactionsEntitiesList = transactionRepository.findAll();
         } else {

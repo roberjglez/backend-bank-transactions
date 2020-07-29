@@ -32,7 +32,7 @@ public class TransactionStatusFinderCommand {
 
     private static void checkChannelProvided(String channel) {
 
-        if (Objects.isNull(channel)) {
+        if (Objects.isNull(channel) || channel.isEmpty()) {
             log.info("Channel not provided");
         } else {
             boolean correctChannel = isCorrectChannel(channel);

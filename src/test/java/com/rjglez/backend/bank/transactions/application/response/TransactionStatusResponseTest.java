@@ -48,7 +48,7 @@ public class TransactionStatusResponseTest {
         // THEN
         Assertions.assertThat(transactionStatusResponse.getReference()).isEqualTo(transactionEntity.getId());
         Assertions.assertThat(transactionStatusResponse.getStatus()).isEqualTo(expectedStatus);
-        if (Objects.isNull(channel)) {
+        if (Objects.isNull(channel) || channel.isEmpty()) {
             Assertions.assertThat(transactionStatusResponse.getAmount()).isEqualTo(transactionEntity.getAmount());
             Assertions.assertThat(transactionStatusResponse.getFee()).isEqualTo(transactionEntity.getFee());
         } else {

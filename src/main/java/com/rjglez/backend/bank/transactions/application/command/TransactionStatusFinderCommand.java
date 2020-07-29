@@ -1,7 +1,6 @@
 package com.rjglez.backend.bank.transactions.application.command;
 
 import com.rjglez.backend.bank.transactions.domain.exception.IncorrectChannelProvidedException;
-import com.rjglez.backend.bank.transactions.infrastructure.presentation.SearchTransactionStatusPresentation;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,10 +19,7 @@ public class TransactionStatusFinderCommand {
     private String reference;
     private String channel;
 
-    public static TransactionStatusFinderCommand of(SearchTransactionStatusPresentation searchTransactionStatusPresentation) {
-
-        String reference = searchTransactionStatusPresentation.getReference();
-        String channel   = searchTransactionStatusPresentation.getChannel();
+    public static TransactionStatusFinderCommand of(String reference, String channel) {
 
         checkChannelProvided(channel);
 

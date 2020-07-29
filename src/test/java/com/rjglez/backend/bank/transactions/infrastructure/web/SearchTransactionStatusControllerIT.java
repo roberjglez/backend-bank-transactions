@@ -1,10 +1,8 @@
 package com.rjglez.backend.bank.transactions.infrastructure.web;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rjglez.backend.bank.transactions.application.command.TransactionStatusFinderCommand;
 import com.rjglez.backend.bank.transactions.application.response.TransactionStatusResponse;
 import com.rjglez.backend.bank.transactions.application.use_case.SearchTransactionStatusUseCase;
-import com.rjglez.backend.bank.transactions.infrastructure.presentation.SearchTransactionStatusPresentation;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,18 +47,11 @@ public class SearchTransactionStatusControllerIT {
     @Test
     public void shouldReturn200OKAndBodyWhenChannelIsNotNull() throws Exception {
 
-        // GIVEN
-        SearchTransactionStatusPresentation searchTransactionStatusPresentation = SearchTransactionStatusPresentation.builder()
-                                                                                                                     .reference("85b37cac-e8c2-46f4-8c77-e11f0cff16b2")
-                                                                                                                     .channel("INTERNAL")
-                                                                                                                     .build();
-
-        ObjectMapper objectMapper = new ObjectMapper();
-
         // THEN
         mockMvc.perform(get(searchTransactionStatusEndpoint)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(objectMapper.writeValueAsString(searchTransactionStatusPresentation)))
+                .param("reference", "85b37cac-e8c2-46f4-8c77-e11f0cff16b2")
+                .param("channel", "INTERNAL"))
                .andExpect(jsonPath("$").exists())
                .andExpect(status().isOk());
     }
@@ -68,17 +59,10 @@ public class SearchTransactionStatusControllerIT {
     @Test
     public void shouldReturn200OKAndBodyWhenChannelIsNull() throws Exception {
 
-        // GIVEN
-        SearchTransactionStatusPresentation searchTransactionStatusPresentation = SearchTransactionStatusPresentation.builder()
-                                                                                                                     .reference("85b37cac-e8c2-46f4-8c77-e11f0cff16b2")
-                                                                                                                     .build();
-
-        ObjectMapper objectMapper = new ObjectMapper();
-
         // THEN
         mockMvc.perform(get(searchTransactionStatusEndpoint)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(objectMapper.writeValueAsString(searchTransactionStatusPresentation)))
+                .param("reference", "85b37cac-e8c2-46f4-8c77-e11f0cff16b2"))
                .andExpect(jsonPath("$").exists())
                .andExpect(status().isOk());
     }
@@ -86,17 +70,10 @@ public class SearchTransactionStatusControllerIT {
     @Test
     public void shouldThrowParameterMandatoryNotFoundExceptionWhenReferenceIsNull() throws Exception {
 
-        // GIVEN
-        SearchTransactionStatusPresentation searchTransactionStatusPresentation = SearchTransactionStatusPresentation.builder()
-                                                                                                                     .channel("ATM")
-                                                                                                                     .build();
-
-        ObjectMapper objectMapper = new ObjectMapper();
-
         // THEN
         mockMvc.perform(get(searchTransactionStatusEndpoint)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(objectMapper.writeValueAsString(searchTransactionStatusPresentation)))
+                .param("channel", "ATM"))
                .andExpect(status().isBadRequest());
     }
 }

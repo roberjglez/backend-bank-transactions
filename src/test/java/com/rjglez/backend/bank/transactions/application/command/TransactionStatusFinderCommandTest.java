@@ -1,7 +1,6 @@
 package com.rjglez.backend.bank.transactions.application.command;
 
 import com.rjglez.backend.bank.transactions.domain.exception.IncorrectChannelProvidedException;
-import com.rjglez.backend.bank.transactions.infrastructure.presentation.SearchTransactionStatusPresentation;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,32 +13,28 @@ public class TransactionStatusFinderCommandTest {
     public void shouldReturnTransactionStatusFinderCommand() {
 
         // GIVEN
-        SearchTransactionStatusPresentation searchTransactionStatusPresentation = SearchTransactionStatusPresentation.builder()
-                                                                                                                     .reference("85b37cac-e8c2-46f4-8c77-e11f0cff16b1")
-                                                                                                                     .channel("CLIENT")
-                                                                                                                     .build();
+        String reference = "85b37cac-e8c2-46f4-8c77-e11f0cff16b1";
+        String channel   = "CLIENT";
 
         // WHEN
-        TransactionStatusFinderCommand transactionStatusFinderCommand = TransactionStatusFinderCommand.of(searchTransactionStatusPresentation);
+        TransactionStatusFinderCommand transactionStatusFinderCommand = TransactionStatusFinderCommand.of(reference, channel);
 
         // THEN
-        Assertions.assertThat(transactionStatusFinderCommand.getReference()).isEqualTo(searchTransactionStatusPresentation.getReference());
-        Assertions.assertThat(transactionStatusFinderCommand.getChannel()).isEqualTo(searchTransactionStatusPresentation.getChannel());
+        Assertions.assertThat(transactionStatusFinderCommand.getReference()).isEqualTo(reference);
+        Assertions.assertThat(transactionStatusFinderCommand.getChannel()).isEqualTo(channel);
     }
 
     @Test
     public void shouldReturnTransactionStatusFinderCommandWhenChannelIsNotProvided() {
 
         // GIVEN
-        SearchTransactionStatusPresentation searchTransactionStatusPresentation = SearchTransactionStatusPresentation.builder()
-                                                                                                                     .reference("85b37cac-e8c2-46f4-8c77-e11f0cff16b1")
-                                                                                                                     .build();
+        String reference = "85b37cac-e8c2-46f4-8c77-e11f0cff16b1";
 
         // WHEN
-        TransactionStatusFinderCommand transactionStatusFinderCommand = TransactionStatusFinderCommand.of(searchTransactionStatusPresentation);
+        TransactionStatusFinderCommand transactionStatusFinderCommand = TransactionStatusFinderCommand.of(reference, null);
 
         // THEN
-        Assertions.assertThat(transactionStatusFinderCommand.getReference()).isEqualTo(searchTransactionStatusPresentation.getReference());
+        Assertions.assertThat(transactionStatusFinderCommand.getReference()).isEqualTo(reference);
     }
 
     @Test
@@ -48,13 +43,11 @@ public class TransactionStatusFinderCommandTest {
         org.junit.jupiter.api.Assertions.assertThrows(IncorrectChannelProvidedException.class, () -> {
 
             // GIVEN
-            SearchTransactionStatusPresentation searchTransactionStatusPresentation = SearchTransactionStatusPresentation.builder()
-                                                                                                                         .reference("85b37cac-e8c2-46f4-8c77-e11f0cff16b1")
-                                                                                                                         .channel("CHANNEL")
-                                                                                                                         .build();
+            String reference = "85b37cac-e8c2-46f4-8c77-e11f0cff16b1";
+            String channel   = "CHANNEL";
 
             // WHEN
-            TransactionStatusFinderCommand.of(searchTransactionStatusPresentation);
+            TransactionStatusFinderCommand.of(reference, channel);
         });
     }
 }

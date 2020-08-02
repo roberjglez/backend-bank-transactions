@@ -19,7 +19,7 @@ Account ES8914658276573 with balance 3467.50
 
 * **Get transaction (/transaction)**-> Possibility to get all transactions from database (/transaction), all transactions from database sorting ascending or descending (/transaction?sorting=descending), all transactions from database for specific iban account (/transaction?accountIban=ES3930294948393) or all transactions from database for specific iban account sorting ascending or descending (/transaction?accountIban=ES3930294948393&sorting=descending)
 
-* **Search transaction status (/transaction-status)**-> If the reference of the transaction is not stored in the system, and exception will be thrown. If the channel provided is not any of the values CLIENT, ATM or INTERNAL, an exception will be thrown. If the channel is not provided, the response will depend on the date of the transaction:
+* **Search transaction status (/transaction-status)**-> Possibility to get transaction status from database searching by reference and channel (/transaction-status?reference=85b37cac-e8c2-46f4-8c77-e11f0cff16b1&channel=CLIENT). If the reference of the transaction is not stored in the system, and exception will be thrown. If the channel provided is not any of the values CLIENT, ATM or INTERNAL, an exception will be thrown. If the channel is not provided, the response will depend on the date of the transaction:
     - Transaction of today: status PENDING, and the amount and the fee.
     - Transaction before today: status SETTLED, and the amount and the fee.
     - Transaction after today: status FUTURE, and the amount and the fee.
@@ -65,11 +65,6 @@ mvn test
 
 **Note:** request parameters accountIban and sorting are optionals.
 
-4. **GET call to endpoint http://localhost:8080/transaction-status with the following body:**
-
-{
-    "reference": "85b37cac-e8c2-46f4-8c77-e11f0cff16b1",
-    "channel": "CLIENT"
-}
+4. **GET call to endpoint http://localhost:8080/transaction-status?reference=85b37cac-e8c2-46f4-8c77-e11f0cff16b1&channel=CLIENT:**
 
 **Note:** reference is mandatory.

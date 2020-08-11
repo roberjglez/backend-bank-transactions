@@ -5,11 +5,12 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.rjglez.backend.bank.transactions.domain.model.TransactionEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @ApiModel(value = "TransactionResponse", description = "Transaction response information")
 public class TransactionResponse {

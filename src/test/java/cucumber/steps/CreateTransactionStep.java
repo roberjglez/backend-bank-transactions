@@ -26,8 +26,6 @@ public class CreateTransactionStep {
                                                                .accountIban(dataMap.get("accountIban"))
                                                                .amount(Double.parseDouble(dataMap.get("amount")))
                                                                .build();
-
-
     }
 
     @When("User creates the new transaction")
@@ -43,7 +41,6 @@ public class CreateTransactionStep {
         HttpEntity<Object> entity = new HttpEntity<>(newTransactionPresentation, headers);
 
         response = restTemplate.exchange(createNewTransactionUrl, HttpMethod.POST, entity, Void.class);
-
     }
 
     @Then("The creation is successful")
@@ -52,6 +49,5 @@ public class CreateTransactionStep {
         Assertions.assertNotNull(response);
         Assertions.assertEquals(response.getStatusCode(), HttpStatus.CREATED);
         Assertions.assertNull(response.getBody());
-
     }
 }

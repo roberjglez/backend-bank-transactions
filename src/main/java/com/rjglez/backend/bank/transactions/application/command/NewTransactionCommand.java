@@ -21,8 +21,8 @@ public class NewTransactionCommand {
     private String reference;
     private String accountIban;
     private String date;
-    private double amount;
-    private double fee;
+    private Double amount;
+    private Double fee;
     private String description;
 
     public static NewTransactionCommand of(NewTransactionPresentation newTransactionPresentation) {

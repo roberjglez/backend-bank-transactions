@@ -4,17 +4,10 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.rjglez.backend.bank.transactions.application.command.NewTransactionCommand;
-import com.rjglez.backend.bank.transactions.application.utils.DateUtils;
 import lombok.*;
 
 import javax.persistence.*;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Objects;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -53,7 +46,7 @@ public class TransactionEntity {
                                 .account(accountEntity)
                                 .date(newTransactionCommand.getDate())
                                 .amount(newTransactionCommand.getAmount())
-                                .fee(newTransactionCommand.getFee())
+                                .fee(Objects.isNull(newTransactionCommand.getFee()) ? 0.0 : newTransactionCommand.getFee())
                                 .description(newTransactionCommand.getDescription())
                                 .build();
     }

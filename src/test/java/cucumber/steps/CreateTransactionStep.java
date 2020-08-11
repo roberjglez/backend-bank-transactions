@@ -18,13 +18,16 @@ public class CreateTransactionStep {
     private NewTransactionPresentation newTransactionPresentation;
     private ResponseEntity<Void>       response;
 
-    @Given("User wants to create a new transaction with the following data")
-    public void userWantsToCreateANewTransactionWithTheFollowingData(DataTable dataTable) {
+    @Given("User wants to create a new transaction with the following data: {string}, {string}, {string}, {string}, {string}, {string}")
+    public void userWantsToCreateANewTransactionWithTheFollowingData(String reference, String accountIban, String date, String amount, String fee, String description) {
 
-        Map<String, String> dataMap = dataTable.asMaps().get(0);
         newTransactionPresentation = NewTransactionPresentation.builder()
-                                                               .accountIban(dataMap.get("accountIban"))
-                                                               .amount(Double.parseDouble(dataMap.get("amount")))
+                                                               .reference(reference)
+                                                               .accountIban(accountIban)
+                                                               .date(date)
+                                                               .amount(Double.parseDouble(amount))
+                                                               .fee(Double.parseDouble(fee))
+                                                               .description(description)
                                                                .build();
     }
 

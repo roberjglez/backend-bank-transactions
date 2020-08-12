@@ -1,4 +1,4 @@
-package cucumber.steps;
+package com.rjglez.backend.bank.transactions.cucumbersteps;
 
 import com.rjglez.backend.bank.transactions.application.response.TransactionStatusResponse;
 import cucumber.api.java.en.And;

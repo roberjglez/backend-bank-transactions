@@ -1,4 +1,4 @@
-package cucumber.steps;
+package com.rjglez.backend.bank.transactions.cucumbersteps;
 
 import com.rjglez.backend.bank.transactions.infrastructure.presentation.NewTransactionPresentation;
 import cucumber.api.java.en.Given;

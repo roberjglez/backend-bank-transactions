@@ -4,7 +4,7 @@
 * Spring Boot 2.3.1, Maven, Docker, Swagger
 * Arquitecture: DDD and hexagonal arquitecture
 * Code language: Java 1.8
-* Testing: Junit5 & Mockito
+* Testing: Junit5 & Mockito, Cucumber
 * Database: Spring Data JPA, PostgreSQL, Flyway
 
 ### Important information before run the application
@@ -43,6 +43,11 @@ In the following URL: http://localhost:8080/swagger-ui.html
 ### How to run tests
 ```
 mvn test
+```
+
+### How to run Cucumber tests
+```
+mvn test -Dtest=CucumberTestsRunner
 ```
 
 ### Example to test the application:

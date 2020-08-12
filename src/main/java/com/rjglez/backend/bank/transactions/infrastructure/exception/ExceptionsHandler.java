@@ -42,13 +42,4 @@ public class ExceptionsHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }
-
-    @ExceptionHandler(value = ParameterMandatoryNotFoundException.class)
-    public ResponseEntity<Object> handlerParameterMandatoryNotFoundException(ParameterMandatoryNotFoundException e) {
-
-        Map<String, Object> errors = new HashMap<>();
-        errors.put("message", e.getMessage());
-
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
-    }
 }

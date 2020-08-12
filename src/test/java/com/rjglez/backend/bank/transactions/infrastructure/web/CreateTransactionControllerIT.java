@@ -54,7 +54,7 @@ public class CreateTransactionControllerIT {
     }
 
     @Test
-    public void shouldThrowParameterMandatoryNotFoundExceptionWhenAccountIbanIsNull() throws Exception {
+    public void shouldThrowBadRequestWhenAccountIbanIsNull() throws Exception {
 
         NewTransactionPresentation newTransactionPresentation = NewTransactionPresentation.builder()
                                                                                           .reference("85b37cac-e8c2-46f4-8c77-e11f0cff16b2")
@@ -73,7 +73,7 @@ public class CreateTransactionControllerIT {
     }
 
     @Test
-    public void shouldThrowParameterMandatoryNotFoundExceptionWhenAmountIsNull() throws Exception {
+    public void shouldThrowBadRequestWhenAmountIsNull() throws Exception {
 
         NewTransactionPresentation newTransactionPresentation = NewTransactionPresentation.builder()
                                                                                           .reference("85b37cac-e8c2-46f4-8c77-e11f0cff16b2")

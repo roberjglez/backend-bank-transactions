@@ -68,7 +68,7 @@ public class SearchTransactionStatusControllerIT {
     }
 
     @Test
-    public void shouldThrowParameterMandatoryNotFoundExceptionWhenReferenceIsNull() throws Exception {
+    public void shouldThrowBadRequestWhenReferenceIsNull() throws Exception {
 
         // THEN
         mockMvc.perform(get(searchTransactionStatusEndpoint)

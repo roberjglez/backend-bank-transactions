@@ -7,8 +7,10 @@ import com.rjglez.backend.bank.transactions.application.utils.DateUtils;
 import com.rjglez.backend.bank.transactions.domain.model.TransactionEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.text.ParseException;
@@ -18,6 +20,8 @@ import java.util.Objects;
 @Slf4j
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @ApiModel(value = "TransactionStatusResponse", description = "Transaction status response information")

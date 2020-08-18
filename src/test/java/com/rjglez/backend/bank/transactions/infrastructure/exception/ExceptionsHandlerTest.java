@@ -1,5 +1,6 @@
 package com.rjglez.backend.bank.transactions.infrastructure.exception;
 
+import com.rjglez.backend.bank.transactions.domain.exception.AccountAlreadyExistsException;
 import com.rjglez.backend.bank.transactions.domain.exception.AccountDoesNotExistException;
 import com.rjglez.backend.bank.transactions.domain.exception.IncorrectChannelProvidedException;
 import com.rjglez.backend.bank.transactions.domain.exception.InsufficientBalanceException;
@@ -17,6 +18,15 @@ public class ExceptionsHandlerTest {
         Assertions.assertThat(response).isNotNull();
         Assertions.assertThat(response.getBody()).isNotNull();
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    public void shouldReturnHttpStatusBadRequestWhenThrownAccountAlreadyExistsException() {
+        ExceptionsHandler      handler  = new ExceptionsHandler();
+        ResponseEntity<Object> response = handler.handlerAccountAlreadyExistsException(new AccountAlreadyExistsException("Account with IBAN XXX already exists"));
+        Assertions.assertThat(response).isNotNull();
+        Assertions.assertThat(response.getBody()).isNotNull();
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
     @Test

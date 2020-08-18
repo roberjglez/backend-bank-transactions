@@ -1,5 +1,6 @@
 package com.rjglez.backend.bank.transactions.domain.model;
 
+import com.rjglez.backend.bank.transactions.application.command.NewAccountCommand;
 import com.rjglez.backend.bank.transactions.domain.utils.DataUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
@@ -18,6 +19,23 @@ public class AccountEntityTest {
     public void setUp() {
 
         this.accountEntity = DataUtils.mockAccountEntity();
+    }
+
+    @Test
+    public void shouldReturnAccountEntity() {
+
+        // GIVEN
+        NewAccountCommand newAccountCommand = NewAccountCommand.builder()
+                                                               .iban("ES3930294948393")
+                                                               .balance(3000.45)
+                                                               .build();
+
+        // WHEN
+        AccountEntity accountEntity = AccountEntity.of(newAccountCommand);
+
+        // THEN
+        Assertions.assertThat(accountEntity.getId()).isEqualTo(newAccountCommand.getIban());
+        Assertions.assertThat(accountEntity.getBalance()).isEqualTo(newAccountCommand.getBalance());
     }
 
     @Test

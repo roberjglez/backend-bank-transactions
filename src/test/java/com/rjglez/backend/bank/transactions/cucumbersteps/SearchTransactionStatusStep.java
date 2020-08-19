@@ -17,17 +17,14 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class SearchTransactionStatusStep {
 
-    private String                                    reference;
     private ResponseEntity<TransactionStatusResponse> response;
 
-    @Given("User wants to get the status of the transaction with reference {string}")
-    public void userWantsToGetTheStatusOfTheTransactionWithReference(String referenceProvided) {
-
-        reference = referenceProvided;
+    @Given("User wants to get the status of his transaction")
+    public void userWantsToGetTheStatusOfHisTransaction() {
     }
 
-    @When("User gets the status of the transaction")
-    public void userGetsTheStatusOfTheTransaction() {
+    @When("User gets the status of his transaction with reference {string}")
+    public void userGetsTheStatusOfHisTransactionWithReference(String reference) {
 
         String searchTransactionStatusUrl = composeUrl(reference, null);
 
@@ -37,17 +34,17 @@ public class SearchTransactionStatusStep {
     }
 
     @And("User gets the status of the transaction with reference {string} and channel {string}")
-    public void userGetsTheStatusOfTheTransactionWithReferenceAndChannel(String referenceProvided, String channel) {
+    public void userGetsTheStatusOfTheTransactionWithReferenceAndChannel(String reference, String channel) {
 
-        String searchTransactionStatusUrl = composeUrl(referenceProvided, channel);
+        String searchTransactionStatusUrl = composeUrl(reference, channel);
 
         RestTemplate restTemplate = new RestTemplate();
 
         response = restTemplate.exchange(searchTransactionStatusUrl, HttpMethod.GET, null, TransactionStatusResponse.class);
     }
 
-    @Then("The response is successful and the status of the transaction is {string}")
-    public void theResponseIsSuccessfulAndTheStatusOfTheTransactionIs(String transactionStatus) {
+    @Then("The status of the transaction is {string}")
+    public void theStatusOfTheTransactionIs(String transactionStatus) {
 
         Assertions.assertNotNull(response);
         Assertions.assertEquals(response.getStatusCode(), HttpStatus.OK);
@@ -55,11 +52,11 @@ public class SearchTransactionStatusStep {
         Assertions.assertEquals(response.getBody().getStatus().name(), transactionStatus);
     }
 
-    private String composeUrl(String referenceProvided, String channel) {
+    private String composeUrl(String reference, String channel) {
 
         String searchTransactionStatusUrl = "http://localhost:8080/transaction-status";
 
-        searchTransactionStatusUrl = searchTransactionStatusUrl.concat("?reference=").concat(referenceProvided);
+        searchTransactionStatusUrl = searchTransactionStatusUrl.concat("?reference=").concat(reference);
 
         searchTransactionStatusUrl = !Objects.isNull(channel) && !channel.isEmpty() ? searchTransactionStatusUrl.concat("&channel=").concat(channel) : searchTransactionStatusUrl;
 

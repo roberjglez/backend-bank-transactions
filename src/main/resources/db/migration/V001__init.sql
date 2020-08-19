@@ -15,11 +15,3 @@ CREATE TABLE IF NOT EXISTS "transaction" (
   CONSTRAINT transaction_account_fkey FOREIGN KEY (account_id) REFERENCES account (id)
   );
 
---
--- Example values to test in tables
---
-
-INSERT INTO account VALUES
-('ES3930294948393', 200.60),
-('ES8914658276573', 3467.50);
-

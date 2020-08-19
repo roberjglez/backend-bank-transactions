@@ -8,13 +8,11 @@
 * Database: Spring Data JPA, PostgreSQL, Flyway
 
 ### Important information before run the application
-1. **The database model has two tables: Account and Transaction.** By default, the table Account has two insertions:
+1. **The database model has two tables: Account and Transaction.** 
 
-Account ES3930294948393 with balance 200.60
+2. **The service has 4 endpoints:**
+* **Create account (/account)**-> If the iban account provided is already stored in the system, an exception will be thrown.
 
-Account ES8914658276573 with balance 3467.50
-
-2. **The service has 3 endpoints:**
 * **Create transaction (/transaction)**-> the date in the payload is provided with the following format *yyyy-MM-dd'T'HH:mm:ss.SSS'Z'*. If the iban account provided is related with an account that is not stored in the system, an exception will be thrown. If transaction leaves the total account balance below 0, it is not allowed and an exception will be thrown.
 
 * **Get transaction (/transaction)**-> Possibility to get all transactions from database (/transaction), all transactions from database sorting ascending or descending (/transaction?sorting=descending), all transactions from database for specific iban account (/transaction?accountIban=ES3930294948393) or all transactions from database for specific iban account sorting ascending or descending (/transaction?accountIban=ES3930294948393&sorting=descending)
@@ -53,7 +51,16 @@ mvn test -Dtest=CucumberTestsRunner
 ### Example to test the application:
 1. **Open Swagger**
 
-2. **POST call to endpoint http://localhost:8080/transaction with the following body:**
+2. **POST call to endpoint http://localhost:8080/account with the following body:**
+
+{
+    "iban": "ES3930294948393",
+    "balance": 4035.80 
+}
+
+**Note:** iban and balance are mandatories.
+
+3. **POST call to endpoint http://localhost:8080/transaction with the following body:**
 
 {
     "reference": "85b37cac-e8c2-46f4-8c77-e11f0cff16b1",
@@ -66,10 +73,10 @@ mvn test -Dtest=CucumberTestsRunner
 
 **Note:** account_iban and amount are mandatories.
 
-3. **GET call to endpoint http://localhost:8080/transaction?accountIban=ES3930294948393&sorting=descending**
+4. **GET call to endpoint http://localhost:8080/transaction?accountIban=ES3930294948393&sorting=descending**
 
 **Note:** request parameters accountIban and sorting are optionals.
 
-4. **GET call to endpoint http://localhost:8080/transaction-status?reference=85b37cac-e8c2-46f4-8c77-e11f0cff16b1&channel=CLIENT:**
+5. **GET call to endpoint http://localhost:8080/transaction-status?reference=85b37cac-e8c2-46f4-8c77-e11f0cff16b1&channel=CLIENT:**
 
 **Note:** reference is mandatory.
